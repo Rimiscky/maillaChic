@@ -20,6 +20,11 @@ describe("architecture de deploiement Hostinger", () => {
     expect(sources).toContain('"build"');
   });
 
+  it("fige l'URL publique au build, car Hostinger ne reconstruit pas le site", () => {
+    const workflow = read(".github/workflows/deploy-hostinger.yml");
+    expect(workflow).toMatch(/NEXT_PUBLIC_SITE_URL: https:\/\/mailachic\.rimiscky\.fr/);
+  });
+
   it("exclut le cache de build de la branche deployee", () => {
     const workflow = read(".github/workflows/deploy-hostinger.yml");
     expect(workflow).toContain(".next/cache");
