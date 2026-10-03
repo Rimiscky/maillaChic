@@ -20,7 +20,7 @@ export function parseSignup(input: unknown): Signup {
     throw new SignupValidationError("Cette adresse e-mail n'est pas valide.");
   }
   const interests = Array.isArray(value.interests)
-    ? value.interests.filter((item): item is string => typeof item === "string" && allowedInterests.has(item))
+    ? [...new Set(value.interests.filter((item): item is string => typeof item === "string" && allowedInterests.has(item)))]
     : [];
   return { email, consent: true, interests };
 }

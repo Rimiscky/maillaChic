@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MobileMenu } from "@/components/mobile-menu";
 import { navigation, site } from "@/lib/site";
 
 export function Header() {
@@ -8,12 +9,7 @@ export function Header() {
         <span className="brand-word">Maila</span>
         <span className="brand-word brand-word-accent">Chic</span>
       </Link>
-      <details className="mobile-menu">
-        <summary>Menu</summary>
-        <nav aria-label="Navigation mobile">
-          {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
-        </nav>
-      </details>
+      <MobileMenu />
       <nav className="desktop-nav" aria-label="Navigation principale">
         {navigation.slice(1, -1).map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
       </nav>

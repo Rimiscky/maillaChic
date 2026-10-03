@@ -8,10 +8,10 @@ export function Footer() {
         <p className="footer-brand">{site.name}</p>
         <p>La première collection est en préparation.</p>
       </div>
-      <div className="footer-links" aria-label="Informations légales">
+      <nav className="footer-links" aria-label="Informations légales">
         <Link href="/mentions-legales">Mentions légales</Link>
         <Link href="/confidentialite">Confidentialité</Link>
-      </div>
+      </nav>
       <p className="asset-note">Visuels de direction artistique temporaires. Photographies de collection à fournir avant publication.</p>
     </footer>
   );

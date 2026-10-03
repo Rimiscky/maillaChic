@@ -9,9 +9,11 @@ export function SignupForm() {
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    // React remet currentTarget à null après le gestionnaire synchrone : on garde le formulaire.
+    const formElement = event.currentTarget;
     setState("loading");
     setMessage("");
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(formElement);
     const payload = {
       email: form.get("email"),
       consent: form.get("consent") === "on",
@@ -25,11 +27,11 @@ export function SignupForm() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const body = await response.json() as { message?: string };
+      const body = await response.json().catch(() => ({})) as { message?: string };
       if (!response.ok) throw new Error(body.message || "L'inscription n'a pas pu être enregistrée.");
       setState("success");
       setMessage(body.message || "Votre inscription est enregistrée.");
-      event.currentTarget.reset();
+      formElement.reset();
     } catch (error) {
       setState("error");
       setMessage(error instanceof Error ? error.message : "L'inscription n'a pas pu être enregistrée.");

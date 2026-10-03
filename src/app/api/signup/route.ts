@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { enforceSignupRateLimit, SignupAbuseError } from "@/lib/signup-protection";
+import { enforceSignupRateLimit, releaseSignupEmail, SignupAbuseError } from "@/lib/signup-protection";
 import { parseSignup, saveSignup, signupConfiguration, SignupValidationError } from "@/lib/signup";
 
 const MAX_BODY_BYTES = 8_192;
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   let input: unknown;
   try {
     const raw = await request.text();
-    if (raw.length > MAX_BODY_BYTES) return publicError("La requête est trop volumineuse.", 413);
+    if (Buffer.byteLength(raw, "utf8") > MAX_BODY_BYTES) return publicError("La requête est trop volumineuse.", 413);
     input = JSON.parse(raw);
   } catch {
     return publicError("Le formulaire envoyé n'est pas valide.", 400);
@@ -27,7 +27,13 @@ export async function POST(request: Request) {
     const forwarded = request.headers.get("x-real-ip") ?? request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
     const agent = request.headers.get("user-agent")?.slice(0, 64) ?? "unknown";
     enforceSignupRateLimit(`${forwarded.trim()}|${agent}`, signup.email);
-    await saveSignup(signup);
+    try {
+      await saveSignup(signup);
+    } catch (error) {
+      // Un échec d'enregistrement ne doit pas bloquer une nouvelle tentative avec la même adresse.
+      releaseSignupEmail(signup.email);
+      throw error;
+    }
     return NextResponse.json({ message: "Votre inscription est enregistrée." }, { status: 201 });
   } catch (error) {
     if (error instanceof SignupValidationError) return publicError(error.message, 400);

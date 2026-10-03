@@ -33,6 +33,10 @@ export function enforceSignupRateLimit(origin: string, email: string, now = Date
   emails.set(email, now + DUPLICATE_MS);
 }
 
+export function releaseSignupEmail(email: string) {
+  emails.delete(email);
+}
+
 export function resetSignupProtectionForTests() {
   origins.clear();
   emails.clear();
