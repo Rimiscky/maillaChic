@@ -22,3 +22,34 @@ describe("inscription à l'alerte de lancement", () => {
     expect(signupConfiguration({ NODE_ENV: "development" })).toEqual({ enabled: true, mode: "local" });
   });
 });
+
+describe("validation des entrées d'inscription", () => {
+  it("rejette les entrées qui ne sont pas des objets", () => {
+    for (const input of [null, undefined, "camille@exemple.fr", 42]) {
+      expect(() => parseSignup(input)).toThrow(/Requête invalide/);
+    }
+  });
+
+  it("exige un consentement booléen explicite", () => {
+    for (const consent of ["true", "on", 1, undefined]) {
+      expect(() => parseSignup({ email: "camille@exemple.fr", consent })).toThrow("consentement");
+    }
+  });
+
+  it("rejette les adresses trop longues ou sans domaine complet", () => {
+    expect(() => parseSignup({ email: `${"a".repeat(250)}@exemple.fr`, consent: true })).toThrow("adresse");
+    expect(() => parseSignup({ email: "camille@exemple", consent: true })).toThrow("adresse");
+    expect(() => parseSignup({ email: "camille @exemple.fr", consent: true })).toThrow("adresse");
+    expect(() => parseSignup({ email: 42, consent: true })).toThrow("adresse");
+  });
+
+  it("dédoublonne les centres d'intérêt et ignore les valeurs non reconnues", () => {
+    expect(parseSignup({ email: "a@exemple.fr", consent: true, interests: ["collection", "collection", 3, "coulisses"] }).interests)
+      .toEqual(["collection", "coulisses"]);
+    expect(parseSignup({ email: "a@exemple.fr", consent: true, interests: "collection" }).interests).toEqual([]);
+  });
+
+  it("ne conserve aucun champ supplémentaire", () => {
+    expect(Object.keys(parseSignup({ email: "a@exemple.fr", consent: true, role: "admin", company: "  " }))).toEqual(["email", "consent", "interests"]);
+  });
+});

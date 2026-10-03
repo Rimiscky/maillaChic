@@ -26,6 +26,11 @@ describe("qualité de publication", () => {
     expect(config).toContain("poweredByHeader: false");
   });
 
+  it("rend les pages à la demande pour appliquer le nonce de la CSP", () => {
+    expect(read("src/app/layout.tsx")).toContain("await connection()");
+    expect(read("src/proxy.ts")).toContain("export function proxy");
+  });
+
   it("valide dans la CI les mêmes barrières qu'en local", () => {
     const workflow = read(".github/workflows/ci.yml");
     for (const command of ["npm ci", "npm test", "npm run typecheck", "npm run lint", "npm run build", "npm audit --omit=dev"]) {
