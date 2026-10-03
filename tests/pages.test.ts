@@ -14,6 +14,7 @@ describe("parcours public V1", () => {
       "src/app/alerte/page.tsx",
       "src/app/mentions-legales/page.tsx",
       "src/app/confidentialite/page.tsx",
+      "src/app/not-found.tsx",
     ]) expect(existsSync(new URL(route, root)), route).toBe(true);
   });
 
