@@ -72,9 +72,16 @@ describe("route d'inscription", () => {
     expect((await response.json()).message).toMatch(/pas disponible/);
   });
 
-  it("signale une adresse déjà envoyée et limite les tentatives par origine", async () => {
+  it("ne révèle pas qu'une adresse est déjà inscrite et ne l'enregistre qu'une fois", async () => {
+    const first = await POST(signupRequest(valid));
+    const second = await POST(signupRequest(valid, { "x-real-ip": "203.0.113.20" }));
+    expect(second.status).toBe(first.status);
+    expect(await second.json()).toEqual(await first.json());
+    expect(readFileSync(subscribersFile, "utf8").trim().split("\n")).toHaveLength(1);
+  });
+
+  it("limite les tentatives par origine", async () => {
     expect((await POST(signupRequest(valid))).status).toBe(201);
-    expect((await POST(signupRequest(valid))).status).toBe(429);
     for (let index = 1; index < 5; index += 1) {
       expect((await POST(signupRequest({ ...valid, email: `personne${index}@exemple.fr` }))).status).toBe(201);
     }
@@ -91,6 +98,15 @@ describe("route d'inscription", () => {
     fetchMock.mockResolvedValueOnce(new Response("", { status: 200 }));
     expect((await POST(signupRequest(valid))).status).toBe(201);
     expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("ignore les adresses x-forwarded-for choisies par le client", async () => {
+    const forwarded = (spoofed: string) => signupRequest({ ...valid, email: `${spoofed}@exemple.fr` }, {
+      "x-real-ip": "",
+      "x-forwarded-for": `${spoofed}, 198.51.100.77`,
+    });
+    for (let index = 0; index < 5; index += 1) expect((await POST(forwarded(`10.0.0.${index}`))).status).toBe(201);
+    expect((await POST(forwarded("10.0.0.99"))).status).toBe(429);
   });
 
   it("ne divulgue pas le détail des erreurs internes", async () => {

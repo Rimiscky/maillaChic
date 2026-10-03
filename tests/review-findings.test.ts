@@ -8,12 +8,12 @@ const read = (path: string) => readFileSync(new URL(path, root), "utf8");
 describe("corrections de revue avant publication", () => {
   beforeEach(() => resetSignupProtectionForTests());
 
-  it("limite les inscriptions répétées par origine et adresse", () => {
+  it("limite les inscriptions répétées par origine et repère les adresses en double", () => {
     for (let index = 0; index < 5; index += 1) {
-      expect(() => enforceSignupRateLimit("198.51.100.4", `person${index}@example.fr`, 1_000)).not.toThrow();
+      expect(enforceSignupRateLimit("198.51.100.4", `person${index}@example.fr`, 1_000)).toEqual({ duplicate: false });
     }
     expect(() => enforceSignupRateLimit("198.51.100.4", "six@example.fr", 1_000)).toThrow(/réessayer/i);
-    expect(() => enforceSignupRateLimit("203.0.113.8", "person0@example.fr", 1_000)).toThrow(/déjà enregistrée/i);
+    expect(enforceSignupRateLimit("203.0.113.8", "person0@example.fr", 1_000)).toEqual({ duplicate: true });
   });
 
   it("bloque l'indexation tant que les informations de publication manquent", () => {

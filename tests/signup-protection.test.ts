@@ -12,24 +12,27 @@ describe("protection contre les abus d'inscription", () => {
     expect(() => enforceSignupRateLimit("origine", "p5@exemple.fr", 15 * MINUTE)).not.toThrow();
   });
 
-  it("accepte de nouveau une adresse après dix minutes", () => {
-    enforceSignupRateLimit("a", "camille@exemple.fr", 0);
-    expect(() => enforceSignupRateLimit("b", "camille@exemple.fr", 10 * MINUTE - 1)).toThrow(/déjà enregistrée/);
-    expect(() => enforceSignupRateLimit("b", "camille@exemple.fr", 10 * MINUTE)).not.toThrow();
+  it("considère une adresse comme nouvelle après dix minutes", () => {
+    expect(enforceSignupRateLimit("a", "camille@exemple.fr", 0).duplicate).toBe(false);
+    expect(enforceSignupRateLimit("b", "camille@exemple.fr", 10 * MINUTE - 1).duplicate).toBe(true);
+    expect(enforceSignupRateLimit("b", "camille@exemple.fr", 10 * MINUTE).duplicate).toBe(false);
   });
 
   it("libère une adresse dont l'enregistrement a échoué", () => {
     enforceSignupRateLimit("a", "camille@exemple.fr", 0);
     releaseSignupEmail("camille@exemple.fr");
-    expect(() => enforceSignupRateLimit("a", "camille@exemple.fr", 1)).not.toThrow();
+    expect(enforceSignupRateLimit("a", "camille@exemple.fr", 1).duplicate).toBe(false);
   });
 
-  it("ne compte pas une adresse en double dans la limite de l'origine", () => {
+  it("compte les doublons dans la limite de l'origine pour freiner le sondage d'adresses", () => {
     enforceSignupRateLimit("a", "camille@exemple.fr", 0);
-    for (let index = 0; index < 3; index += 1) {
-      expect(() => enforceSignupRateLimit("a", "camille@exemple.fr", 1)).toThrow(/déjà enregistrée/);
-    }
-    for (let index = 1; index < 5; index += 1) enforceSignupRateLimit("a", `p${index}@exemple.fr`, 2);
-    expect(() => enforceSignupRateLimit("a", "p6@exemple.fr", 3)).toThrow(/Trop de tentatives/);
+    for (let index = 0; index < 4; index += 1) enforceSignupRateLimit("a", "camille@exemple.fr", 1);
+    expect(() => enforceSignupRateLimit("a", "camille@exemple.fr", 2)).toThrow(/Trop de tentatives/);
+  });
+
+  it("ne réinitialise pas les limites existantes quand beaucoup de clés arrivent", () => {
+    for (let index = 0; index < 5; index += 1) enforceSignupRateLimit("bloquee", `p${index}@exemple.fr`, 0);
+    for (let index = 0; index < 9_990; index += 1) enforceSignupRateLimit(`flot-${index}`, `flot-${index}@exemple.fr`, 1);
+    expect(() => enforceSignupRateLimit("bloquee", "p6@exemple.fr", 2)).toThrow(/Trop de tentatives/);
   });
 });

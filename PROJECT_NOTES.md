@@ -34,10 +34,11 @@ L'inscription ne collecte pas uniquement une adresse. La personne peut choisir c
 - Webhook HTTPS configurable par `MAILA_SIGNUP_WEBHOOK_URL`.
 - En développement seulement, stockage local dans `.data/subscribers.ndjson`.
 - En production, le formulaire refuse honnêtement l'inscription tant qu'aucun webhook durable n'est configuré.
-- Une limite locale de cinq tentatives par fenêtre et une déduplication temporaire réduisent les abus ; le service d'e-mailing final devra aussi appliquer sa propre limitation et le double consentement.
+- Une limite locale de cinq tentatives par fenêtre et une déduplication temporaire réduisent les abus. Une adresse déjà reçue obtient la même réponse qu'une première inscription, pour ne pas révéler qui est inscrit. L'adresse du visiteur provient de `x-real-ip`, sinon de la dernière entrée de `x-forwarded-for`. Cette limite reste en mémoire et propre à chaque instance : le service d'e-mailing final devra aussi appliquer sa propre limitation et le double consentement.
 - Le site reste en `noindex` et bloque les robots tant que les mentions légales, le domaine, le webhook et les photographies définitives manquent.
 - `npm run validate:publish` refuse une publication sans URL HTTPS finale et sans webhook HTTPS.
-- La politique CSP conserve actuellement `script-src 'unsafe-inline'` pour les scripts d'hydratation Next.js. Une politique à nonce devra être étudiée avec l'hébergeur final.
+- La politique CSP des pages est posée par `src/proxy.ts` avec un nonce unique par requête (`script-src 'self' 'nonce-...' 'strict-dynamic'`, sans `'unsafe-inline'`). Les pages sont donc rendues à la demande (`connection()` dans le layout). L'option expérimentale SRI a été essayée : seule, elle bloque les scripts inline d'hydratation.
+- `npm audit` signale `braces` (via `eslint-config-next`, outil de développement uniquement). Aucune version corrigée n'existe ; la CI audite les dépendances de production, qui ne sont pas concernées.
 - Les routes actuelles peuvent recevoir plus tard des données de catalogue et une couche commerce sans transformer la V1 en fausse boutique.
 
 ## Informations et actifs requis avant publication
