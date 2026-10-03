@@ -1,0 +1,80 @@
+name: Deploiement Hostinger
+
+# Le conteneur de build Hostinger fournit une glibc anterieure a 2.29, que le
+# binaire natif de Next.js 16 exige. Le build est donc realise ici, sur un
+# runner Ubuntu a jour, et seule la sortie est publiee sur la branche que
+# Hostinger deploie.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dependances
+        run: npm ci
+
+      - name: Tests
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Assembler l'arborescence de deploiement
+        run: |
+          set -euo pipefail
+          rm -rf deploy-tree
+          mkdir -p deploy-tree
+          cp -R .next deploy-tree/.next
+          rm -rf deploy-tree/.next/cache
+          cp -R public deploy-tree/public
+          cp next.config.ts package.json package-lock.json deploy-tree/
+          printf 'node_modules/\n' > deploy-tree/.gitignore
+          node -e '
+            const fs = require("node:fs");
+            const file = "deploy-tree/package.json";
+            const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+            pkg.scripts.build = "echo \"Build deja realise par GitHub Actions\"";
+            fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + "\n");
+          '
+
+      - name: Publier sur la branche deploy/hostinger
+        env:
+          DEPLOY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd deploy-tree
+          git init -q
+          git checkout -q -b deploy/hostinger
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${DEPLOY_TOKEN}@github.com/Rimiscky/maillaChic.git"
+          if git fetch -q origin deploy/hostinger; then
+            git reset -q --soft FETCH_HEAD
+          fi
+          git add -A
+          git commit -q -m "build: sortie Next.js prete pour Hostinger (${GITHUB_SHA:0:7})"
+          git push -q --force origin HEAD:refs/heads/deploy/hostinger
