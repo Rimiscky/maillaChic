@@ -138,6 +138,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .alert-page { display: grid; grid-template-columns: 1fr 1fr; min-height: 75vh; }
 .alert-intro { padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 7vw, 8rem); background: var(--ink); color: var(--ivory); }
 .alert-intro .eyebrow { color: var(--sand); }
+.manifesto-copy .eyebrow { color: var(--sand); }
 .alert-intro h1 { max-width: 9ch; margin: 1rem 0 2rem; font-size: clamp(3.5rem, 7vw, 7rem); line-height: .9; }
 .alert-intro > p:not(.eyebrow) { max-width: 34rem; color: #d3cac0; }
 .alert-intro ul { display: grid; gap: .7rem; margin: 2.5rem 0 0; padding: 0; list-style: none; }
@@ -203,6 +204,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
   .hero-copy h1 { font-size: clamp(3.8rem, 19vw, 6rem); }
   .hero-actions { align-items: stretch; flex-direction: column; }
   .button, .text-action { width: 100%; }
+  .signup-form .button { width: 100%; }
   .intro-band, .chapters-section, .page-hero, .next-step, .transparency-note { padding-right: 1.25rem; padding-left: 1.25rem; }
   .intro-band h2, .section-header h2, .manifesto-copy h2, .signup-callout h2, .page-hero h1, .transparency-note h2, .next-step h2 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
   .chapter-row { gap: 1rem; }
