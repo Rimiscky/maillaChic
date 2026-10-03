@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 
@@ -6,15 +7,17 @@ const allowedInterests = new Set(["collection", "matieres", "coulisses"]);
 export type Signup = { email: string; consent: true; interests: string[] };
 type SignupEnvironment = Partial<Record<"NODE_ENV" | "MAILA_SIGNUP_WEBHOOK_URL" | "MAILA_SIGNUP_WEBHOOK_TOKEN" | "MAILA_SUBSCRIBERS_FILE", string>>;
 
+export class SignupValidationError extends Error {}
+
 export function parseSignup(input: unknown): Signup {
-  if (!input || typeof input !== "object") throw new Error("Requête invalide.");
+  if (!input || typeof input !== "object") throw new SignupValidationError("Requête invalide.");
   const value = input as Record<string, unknown>;
-  if (typeof value.company === "string" && value.company.trim()) throw new Error("Requête refusée.");
-  if (value.consent !== true) throw new Error("Le consentement est requis.");
-  if (typeof value.email !== "string") throw new Error("Une adresse e-mail valide est requise.");
+  if (typeof value.company === "string" && value.company.trim()) throw new SignupValidationError("Requête refusée.");
+  if (value.consent !== true) throw new SignupValidationError("Le consentement est requis.");
+  if (typeof value.email !== "string") throw new SignupValidationError("Une adresse e-mail valide est requise.");
   const email = value.email.trim().toLowerCase();
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(email)) {
-    throw new Error("Cette adresse e-mail n'est pas valide.");
+    throw new SignupValidationError("Cette adresse e-mail n'est pas valide.");
   }
   const interests = Array.isArray(value.interests)
     ? value.interests.filter((item): item is string => typeof item === "string" && allowedInterests.has(item))
@@ -39,6 +42,7 @@ export async function saveSignup(signup: Signup, env: SignupEnvironment = proces
       method: "POST",
       headers: {
         "content-type": "application/json",
+        "x-idempotency-key": createHash("sha256").update(signup.email).digest("hex"),
         ...(env.MAILA_SIGNUP_WEBHOOK_TOKEN ? { authorization: `Bearer ${env.MAILA_SIGNUP_WEBHOOK_TOKEN}` } : {}),
       },
       body: JSON.stringify(record),
