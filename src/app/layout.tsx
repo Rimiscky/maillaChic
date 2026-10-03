@@ -6,18 +6,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  applicationName: site.name,
   title: { default: "Maila Chic | Première collection en préparation", template: "%s | Maila Chic" },
   description: site.description,
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: site.locale,
     title: "Maila Chic | Première collection en préparation",
     description: site.description,
     siteName: site.name,
-    url: "/",
+    images: ["/opengraph-image"],
   },
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: false, noarchive: true },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

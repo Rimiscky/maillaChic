@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <section className="home-hero">
         <div className="hero-copy">
-          <p className="eyebrow">Maison en préouverture · France</p>
+          <p className="eyebrow">Maison en préouverture</p>
           <h1>La première collection se dessine.</h1>
           <p className="hero-lead">Une maison de mode pensée comme un dialogue entre la ligne, la matière et le détail. Maila Chic ouvre aujourd'hui son carnet de création.</p>
           <div className="hero-actions">
