@@ -52,6 +52,17 @@ L'inscription ne collecte pas uniquement une adresse. La personne peut choisir c
 - Prestataire d'e-mailing ou webhook durable, avec procédure de désinscription.
 - Durées de conservation et coordonnées d'exercice des droits RGPD.
 
+## Déploiement Hostinger
+
+Le sous-domaine officiel est `mailachic.rimiscky.fr` (un seul « l » dans « mala », domaine `rimiscky.fr` avec un « c »).
+
+Le conteneur de build de Hostinger fournit une glibc antérieure à 2.29, que le binaire natif de Next.js 16 exige. Le déploiement suit donc l'architecture déjà éprouvée sur le portfolio :
+
+1. Le workflow `.github/workflows/deploy-hostinger.yml` construit le site sur un runner GitHub Actions (tests, lint, build) et publie la sortie prête à servir sur la branche `deploy/hostinger`.
+2. Le panneau Hostinger doit pointer sur la branche `deploy/hostinger` (jamais `main` ni `feat/**`) en tant qu'application Node.js.
+3. Le script `build` de la branche déployée est neutralisé (simple `echo`) : Hostinger n'a plus qu'à installer les dépendances et lancer `npm start`.
+4. L'auto-déploiement Git classique de Hostinger (clone + Composer) ne convient pas : il publierait les sources TypeScript sans les construire et renverrait 403.
+
 ## Sources
 
 [1] [Polène - La Maison](https://www.polene-paris.com/pages/about-the-brand)
