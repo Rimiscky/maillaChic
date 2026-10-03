@@ -50,7 +50,7 @@ jobs:
           mkdir -p deploy-tree
           cp -R .next deploy-tree/.next
           rm -rf deploy-tree/.next/cache
-          cp -R public deploy-tree/public
+          if [ -d public ]; then cp -R public deploy-tree/public; fi
           cp next.config.ts package.json package-lock.json deploy-tree/
           printf 'node_modules/\n' > deploy-tree/.gitignore
           node -e '

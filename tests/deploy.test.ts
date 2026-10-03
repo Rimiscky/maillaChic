@@ -25,6 +25,11 @@ describe("architecture de deploiement Hostinger", () => {
     expect(workflow).toContain(".next/cache");
   });
 
+  it("ne casse pas l assemblage quand public/ est absent", () => {
+    const workflow = read(".github/workflows/deploy-hostinger.yml");
+    expect(workflow).toContain("if [ -d public ]");
+  });
+
   it("verrouille les commandes du workflow par SHA", () => {
     const workflow = read(".github/workflows/deploy-hostinger.yml");
     const uses = workflow.match(/uses:\s*\S+/g) ?? [];
