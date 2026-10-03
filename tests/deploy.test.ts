@@ -1,4 +1,8 @@
-import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 const root = new URL("../", import.meta.url);
@@ -13,11 +17,27 @@ describe("architecture de deploiement Hostinger", () => {
     expect(workflow).not.toContain("SSH_PASSWORD");
   });
 
-  it("neutralise le script de build uniquement sur la branche deployee", () => {
+  it("publie les sources avec la sortie construite et un build qui sait reconstruire", () => {
     const workflow = read(".github/workflows/deploy-hostinger.yml");
-    expect(workflow).toContain("Build deja realise par GitHub Actions");
-    const sources = read("package.json");
-    expect(sources).toContain('"build"');
+    expect(workflow).toContain('pkg.scripts.build = "node scripts/hostinger-build.mjs"');
+    expect(workflow).toContain("cp -R src scripts deploy-tree/");
+    expect(workflow).toContain("tsconfig.json");
+    expect(workflow).not.toMatch(/^\s+cp -R public/m);
+    expect(read("package.json")).toContain('"build": "next build"');
+  });
+
+  it("réutilise la sortie préconstruite quand l'hébergeur l'a conservée", () => {
+    const directory = mkdtempSync(path.join(tmpdir(), "maila-deploy-"));
+    try {
+      mkdirSync(path.join(directory, ".next"));
+      writeFileSync(path.join(directory, ".next", "BUILD_ID"), "abc");
+      const script = fileURLToPath(new URL("../scripts/hostinger-build.mjs", import.meta.url));
+      const result = spawnSync(process.execPath, [script], { cwd: directory, encoding: "utf8" });
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain("compilation ignorée");
+    } finally {
+      rmSync(directory, { recursive: true, force: true });
+    }
   });
 
   it("fige l'URL publique au build, car Hostinger ne reconstruit pas le site", () => {

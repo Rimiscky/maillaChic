@@ -61,7 +61,7 @@ Le conteneur de build de Hostinger fournit une glibc antérieure à 2.29, que le
 
 1. Le workflow `.github/workflows/deploy-hostinger.yml` construit le site sur un runner GitHub Actions (tests, lint, build) et publie la sortie prête à servir sur la branche `deploy/hostinger`.
 2. Le panneau Hostinger doit pointer sur la branche `deploy/hostinger` (jamais `main` ni `feat/**`) en tant qu'application Node.js.
-3. Le script `build` de la branche déployée est neutralisé (simple `echo`) : Hostinger n'a plus qu'à installer les dépendances et lancer `npm start`.
+3. La branche déployée contient la sortie `.next` et les sources. Son script `build` (`scripts/hostinger-build.mjs`) réutilise la sortie préconstruite si l'hébergeur l'a conservée, et lance sinon `next build` : la plateforme Node.js de Hostinger nettoie `.next` avant de compiler, ce qui faisait échouer l'ancien `build` réduit à un `echo`. L'URL publique est fixée au build (`NEXT_PUBLIC_SITE_URL` dans le workflow et dans les variables Hostinger).
 4. L'auto-déploiement Git classique de Hostinger (clone + Composer) ne convient pas : il publierait les sources TypeScript sans les construire et renverrait 403.
 
 ## Sources

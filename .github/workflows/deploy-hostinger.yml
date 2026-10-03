@@ -52,16 +52,19 @@ jobs:
           set -euo pipefail
           rm -rf deploy-tree
           mkdir -p deploy-tree
+          # Sortie construite ici + sources : l'hebergeur peut reutiliser la premiere
+          # ou reconstruire a partir des secondes s'il nettoie .next avant sa compilation.
           cp -R .next deploy-tree/.next
           rm -rf deploy-tree/.next/cache
+          cp -R src scripts deploy-tree/
           if [ -d public ]; then cp -R public deploy-tree/public; fi
-          cp next.config.ts package.json package-lock.json deploy-tree/
+          cp next.config.ts tsconfig.json package.json package-lock.json deploy-tree/
           printf 'node_modules/\n' > deploy-tree/.gitignore
           node -e '
             const fs = require("node:fs");
             const file = "deploy-tree/package.json";
             const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
-            pkg.scripts.build = "echo \"Build deja realise par GitHub Actions\"";
+            pkg.scripts.build = "node scripts/hostinger-build.mjs";
             fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + "\n");
           '
 
