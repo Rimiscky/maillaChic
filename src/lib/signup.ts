@@ -13,12 +13,13 @@ export function parseSignup(input: unknown): Signup {
   if (!input || typeof input !== "object") throw new SignupValidationError("Requête invalide.");
   const value = input as Record<string, unknown>;
   if (typeof value.company === "string" && value.company.trim()) throw new SignupValidationError("Requête refusée.");
-  if (value.consent !== true) throw new SignupValidationError("Le consentement est requis.");
   if (typeof value.email !== "string") throw new SignupValidationError("Une adresse e-mail valide est requise.");
   const email = value.email.trim().toLowerCase();
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(email)) {
     throw new SignupValidationError("Cette adresse e-mail n'est pas valide.");
   }
+  // Après l'adresse : les erreurs suivent l'ordre visuel du formulaire.
+  if (value.consent !== true) throw new SignupValidationError("Le consentement est requis.");
   const interests = Array.isArray(value.interests)
     ? [...new Set(value.interests.filter((item): item is string => typeof item === "string" && allowedInterests.has(item)))]
     : [];

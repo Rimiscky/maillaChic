@@ -40,7 +40,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Les variables NEXT_PUBLIC_* sont figees au build : Hostinger ne reconstruit pas,
+      # donc l'URL publique doit etre fournie ici (metadonnees, sitemap, robots).
       - name: Build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://mailachic.rimiscky.fr
         run: npm run build
 
       - name: Assembler l'arborescence de deploiement

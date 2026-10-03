@@ -2,10 +2,12 @@
 
 import { KeyboardEvent, MouseEvent, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/site";
 
 export function MobileMenu() {
   const menu = useRef<HTMLDetailsElement>(null);
+  const pathname = usePathname();
 
   // Le layout persiste entre les navigations : le menu doit se refermer explicitement.
   function close() {
@@ -26,7 +28,9 @@ export function MobileMenu() {
     <details className="mobile-menu" ref={menu} onKeyDown={onKeyDown}>
       <summary>Menu</summary>
       <nav aria-label="Navigation mobile" onClick={onClick}>
-        {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
+        {navigation.map((item) => (
+          <Link href={item.href} key={item.href} aria-current={item.href === pathname ? "page" : undefined}>{item.label}</Link>
+        ))}
       </nav>
     </details>
   );

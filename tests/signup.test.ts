@@ -53,3 +53,10 @@ describe("validation des entrées d'inscription", () => {
     expect(Object.keys(parseSignup({ email: "a@exemple.fr", consent: true, role: "admin", company: "  " }))).toEqual(["email", "consent", "interests"]);
   });
 });
+
+describe("ordre des erreurs du formulaire", () => {
+  it("signale d'abord l'adresse, comme dans l'ordre visuel du formulaire", () => {
+    expect(() => parseSignup({ email: "", consent: false })).toThrow("adresse");
+    expect(() => parseSignup({ email: "camille@exemple.fr", consent: false })).toThrow("consentement");
+  });
+});
