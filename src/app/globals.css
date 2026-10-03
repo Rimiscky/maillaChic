@@ -148,13 +148,13 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .field label { font-family: var(--serif); font-size: 1.8rem; }
 .field input { width: 100%; min-height: 56px; padding: .8rem 0; border: 0; border-bottom: 1px solid var(--ink); border-radius: 0; background: transparent; color: var(--ink); font-size: 1.1rem; }
 .field p, .form-disclaimer { color: #675e56; font-size: .75rem; }
-.consent-row { display: grid; grid-template-columns: 1.25rem 1fr; gap: .75rem; align-items: start; font-size: .82rem; }
-.consent-row input { width: 1.15rem; height: 1.15rem; margin-top: .15rem; accent-color: var(--clay-dark); }
+.consent-row { display: grid; grid-template-columns: 1.25rem 1fr; gap: .75rem; align-items: start; min-height: 48px; font-size: .82rem; }
+.consent-row input { width: 1.35rem; height: 1.35rem; margin-top: .15rem; accent-color: var(--clay-dark); }
 .consent-row a { text-decoration: underline; }
 .interest-fieldset { display: grid; gap: .65rem; margin: 0; padding: 1.25rem 0; border: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .interest-fieldset legend { margin-bottom: .8rem; font-family: var(--serif); font-size: 1.15rem; }
-.interest-fieldset label { display: flex; gap: .7rem; align-items: center; min-height: 44px; font-size: .85rem; }
-.interest-fieldset input { width: 1.1rem; height: 1.1rem; accent-color: var(--clay-dark); }
+.interest-fieldset label { display: flex; gap: .7rem; align-items: center; min-height: 48px; font-size: .85rem; }
+.interest-fieldset input { width: 1.35rem; height: 1.35rem; accent-color: var(--clay-dark); }
 .signup-form .button { width: fit-content; }
 .signup-form .button:disabled { cursor: wait; opacity: .6; }
 .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
