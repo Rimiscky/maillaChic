@@ -1,0 +1,17 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/alerte/page": "app/alerte/page.js",
+  "/api/signup/route": "app/api/signup/route.js",
+  "/carnet/page": "app/carnet/page.js",
+  "/collection/page": "app/collection/page.js",
+  "/confidentialite/page": "app/confidentialite/page.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/mentions-legales/page": "app/mentions-legales/page.js",
+  "/opengraph-image/route": "app/opengraph-image/route.js",
+  "/page": "app/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/univers/page": "app/univers/page.js"
+}
