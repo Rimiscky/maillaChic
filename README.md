@@ -225,3 +225,20 @@ Deliver the implemented authorised scope and a concise report covering:
 The final standard is a coherent, credible website with carefully finished details, not the number of agents, plugins, or lines of code used.
 
 Do not use long dash characters in content, comments, or documentation.
+
+## IMPLEMENTATION STATUS
+
+The V1 implementation lives on the `feat/v1-prelaunch` branch. See `PROJECT_NOTES.md` for the selected art direction, competitive references, production requirements, and V2 transition.
+
+Local commands:
+
+```bash
+npm ci
+npm test
+npm run typecheck
+npm run lint
+npm run build
+npm run dev
+```
+
+Production signup requires `MAILA_SIGNUP_WEBHOOK_URL`. Without it, the public runtime refuses registration instead of pretending to save an address.
