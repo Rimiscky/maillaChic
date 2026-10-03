@@ -1,5 +1,5 @@
 User-Agent: *
 Disallow: /
 
-Host: http://localhost:3000
-Sitemap: http://localhost:3000/sitemap.xml
+Host: https://mailachic.rimiscky.fr
+Sitemap: https://mailachic.rimiscky.fr/sitemap.xml
