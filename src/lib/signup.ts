@@ -1,7 +1,9 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 
-export type Signup = { email: string; consent: true };
+const allowedInterests = new Set(["collection", "matieres", "coulisses"]);
+
+export type Signup = { email: string; consent: true; interests: string[] };
 type SignupEnvironment = Partial<Record<"NODE_ENV" | "MAILA_SIGNUP_WEBHOOK_URL" | "MAILA_SIGNUP_WEBHOOK_TOKEN" | "MAILA_SUBSCRIBERS_FILE", string>>;
 
 export function parseSignup(input: unknown): Signup {
@@ -14,7 +16,10 @@ export function parseSignup(input: unknown): Signup {
   if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(email)) {
     throw new Error("Cette adresse e-mail n'est pas valide.");
   }
-  return { email, consent: true };
+  const interests = Array.isArray(value.interests)
+    ? value.interests.filter((item): item is string => typeof item === "string" && allowedInterests.has(item))
+    : [];
+  return { email, consent: true, interests };
 }
 
 export function signupConfiguration(env: SignupEnvironment = process.env) {

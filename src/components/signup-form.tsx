@@ -16,6 +16,7 @@ export function SignupForm() {
       email: form.get("email"),
       consent: form.get("consent") === "on",
       company: form.get("company"),
+      interests: form.getAll("interests"),
     };
 
     try {
@@ -42,6 +43,12 @@ export function SignupForm() {
         <input id="email" name="email" type="email" autoComplete="email" required placeholder="vous@exemple.fr" aria-describedby="email-help" />
         <p id="email-help">Un message à la révélation de la collection, puis à l'ouverture.</p>
       </div>
+      <fieldset className="interest-fieldset">
+        <legend>Ce que vous souhaitez suivre</legend>
+        <label><input name="interests" type="checkbox" value="collection" defaultChecked /> <span>La révélation de la collection</span></label>
+        <label><input name="interests" type="checkbox" value="matieres" /> <span>Les matières et leur entretien</span></label>
+        <label><input name="interests" type="checkbox" value="coulisses" /> <span>Le carnet de création</span></label>
+      </fieldset>
       <div className="honeypot" aria-hidden="true">
         <label htmlFor="company">Entreprise</label><input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
