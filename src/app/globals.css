@@ -174,7 +174,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
   .site-header { grid-template-columns: 1fr auto; min-height: 78px; }
   .desktop-nav, .header-cta { display: none; }
   .mobile-menu { display: block; justify-self: end; position: relative; }
-  .mobile-menu summary { cursor: pointer; list-style: none; }
+  .mobile-menu summary { min-height: 44px; min-width: 44px; cursor: pointer; list-style: none; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
   .mobile-menu nav { position: absolute; top: 100%; right: 0; display: grid; width: min(80vw, 21rem); padding: 1rem; background: var(--ivory); border: 1px solid var(--ink); box-shadow: 0 12px 28px rgba(36,31,27,.14); }
   .mobile-menu a { padding: .4rem .5rem; border-bottom: 1px solid var(--line); }
