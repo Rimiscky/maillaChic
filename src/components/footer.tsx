@@ -8,7 +8,7 @@ export function Footer() {
       <WaxBand id="footer" />
       <footer className="site-footer">
         <div className="footer-intro">
-          <p className="footer-brand"><span>Maila</span><span>Chic</span></p>
+          <p className="footer-brand"><span className="brand-word">Maila</span><span className="brand-word brand-word-accent">Chic</span></p>
           <p>{site.tagline}</p>
           <p>La première collection est en préparation.</p>
         </div>
@@ -23,7 +23,7 @@ export function Footer() {
           <Link href="/mentions-legales">Mentions légales</Link>
           <Link href="/confidentialite">Confidentialité</Link>
         </nav>
-        <div className="footer-column">
+        <div className="footer-column footer-launch">
           <p>Lancement</p>
           <Link href="/alerte">Être informé de l'ouverture</Link>
         </div>

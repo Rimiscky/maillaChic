@@ -6,11 +6,11 @@ import { site } from "@/lib/site";
 export function Header() {
   return (
     <>
-      <p className="top-bar">Préouverture · La première collection se dessine</p>
+      <p className="top-bar">Préouverture<span className="top-bar-more"> · La première collection se dessine</span></p>
       <header className="site-header">
         <Link className="brand" href="/" aria-label="Maila Chic, accueil">
-          <span className="brand-name">Maila</span>
-          <span className="brand-sub">Chic</span>
+          <span className="brand-word">Maila</span>
+          <span className="brand-word brand-word-accent">Chic</span>
         </Link>
         <MobileMenu />
         <DesktopNav />
