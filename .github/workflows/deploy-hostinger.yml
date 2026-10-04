@@ -45,7 +45,7 @@ jobs:
       - name: Build
         env:
           NEXT_PUBLIC_SITE_URL: https://mailachic.rimiscky.fr
-        run: npm run build
+        run: node scripts/hostinger-build.mjs
 
       - name: Assembler l'arborescence de deploiement
         run: |
@@ -59,12 +59,14 @@ jobs:
           cp -R src scripts deploy-tree/
           if [ -d public ]; then cp -R public deploy-tree/public; fi
           cp next.config.ts tsconfig.json package.json package-lock.json deploy-tree/
-          printf 'node_modules/\n' > deploy-tree/.gitignore
+          # Seul le node_modules racine est ignore : celui de .next/standalone fait partie du serveur.
+          printf '/node_modules/\n' > deploy-tree/.gitignore
           node -e '
             const fs = require("node:fs");
             const file = "deploy-tree/package.json";
             const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
             pkg.scripts.build = "node scripts/hostinger-build.mjs";
+            pkg.scripts.start = "node .next/standalone/server.js";
             fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + "\n");
           '
 

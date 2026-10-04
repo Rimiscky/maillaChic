@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -12,7 +12,7 @@ describe("architecture de deploiement Hostinger", () => {
   it("prepare une branche deploy/hostinger prete a servir sans rebuild local", () => {
     const workflow = read(".github/workflows/deploy-hostinger.yml");
     expect(workflow).toContain("deploy/hostinger");
-    expect(workflow).toContain("npm run build");
+    expect(workflow).toContain("run: node scripts/hostinger-build.mjs");
     expect(workflow).toContain("deploy-tree");
     expect(workflow).not.toContain("SSH_PASSWORD");
   });
@@ -26,15 +26,25 @@ describe("architecture de deploiement Hostinger", () => {
     expect(read("package.json")).toContain('"build": "next build"');
   });
 
-  it("réutilise la sortie préconstruite quand l'hébergeur l'a conservée", () => {
+  it("produit le serveur autonome qu'exige l'application Node.js de Hostinger", () => {
+    expect(read("next.config.ts")).toContain('output: "standalone"');
+    const workflow = read(".github/workflows/deploy-hostinger.yml");
+    expect(workflow).toContain('pkg.scripts.start = "node .next/standalone/server.js"');
+    expect(workflow).toContain("printf '/node_modules/\\n'");
+  });
+
+  it("réutilise le serveur autonome préconstruit et y copie les fichiers statiques", () => {
     const directory = mkdtempSync(path.join(tmpdir(), "maila-deploy-"));
     try {
-      mkdirSync(path.join(directory, ".next"));
-      writeFileSync(path.join(directory, ".next", "BUILD_ID"), "abc");
+      mkdirSync(path.join(directory, ".next", "standalone"), { recursive: true });
+      mkdirSync(path.join(directory, ".next", "static", "chunks"), { recursive: true });
+      writeFileSync(path.join(directory, ".next", "standalone", "server.js"), "");
+      writeFileSync(path.join(directory, ".next", "static", "chunks", "app.css"), "body{}");
       const script = fileURLToPath(new URL("../scripts/hostinger-build.mjs", import.meta.url));
       const result = spawnSync(process.execPath, [script], { cwd: directory, encoding: "utf8" });
       expect(result.status).toBe(0);
       expect(result.stdout).toContain("compilation ignorée");
+      expect(existsSync(path.join(directory, ".next", "standalone", ".next", "static", "chunks", "app.css"))).toBe(true);
     } finally {
       rmSync(directory, { recursive: true, force: true });
     }
