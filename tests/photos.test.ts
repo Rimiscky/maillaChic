@@ -8,9 +8,9 @@ describe("photographies d'ambiance provisoires", () => {
   const photos = read("src/lib/photos.ts");
   const component = read("src/components/ambiance-photo.tsx");
 
-  it("ne publie que les trois photographies sans logo d'une autre marque", () => {
+  it("ne publie que les photographies sans logo ni monogramme d'une autre marque", () => {
     const files = readdirSync(new URL("src/assets/ambiance/", root)).sort();
-    expect(files).toEqual(["cabas-facade-tissee.webp", "modele-sac-ecailles.webp", "sac-bordeaux-vannerie.webp"]);
+    expect(files).toEqual(["cabas-facade-tissee.webp", "sac-bordeaux-vannerie.webp"]);
     for (const file of files) expect(existsSync(new URL(`src/assets/ambiance/${file}`, root))).toBe(true);
     expect(`${photos}\n${read("src/app/page.tsx")}\n${read("src/app/collection/page.tsx")}`).not.toMatch(/scelto|scèltö|koolafrika/i);
   });
@@ -22,7 +22,7 @@ describe("photographies d'ambiance provisoires", () => {
 
   it("décrit chaque image pour les lecteurs d'écran", () => {
     const alts = [...photos.matchAll(/alt: "([^"]+)"/g)].map(([, alt]) => alt);
-    expect(alts).toHaveLength(4);
+    expect(alts).toHaveLength(2);
     for (const alt of alts) expect(alt.length).toBeGreaterThan(40);
   });
 
@@ -30,11 +30,11 @@ describe("photographies d'ambiance provisoires", () => {
     expect(component).not.toMatch(/style=\{/);
     expect(component).not.toMatch(/from "next\/image"/);
     const css = read("src/app/globals.css");
-    for (const focus of ["modele", "detail", "bordeaux", "cabas"]) expect(css).toContain(`img[data-focus="${focus}"]`);
+    for (const focus of ["bordeaux", "cabas"]) expect(css).toContain(`img[data-focus="${focus}"]`);
   });
 
   it("utilise les photographies sur l'accueil et la collection", () => {
-    expect(read("src/app/page.tsx")).toContain("<AmbiancePhoto photo={ambiancePhotos.modeleSacEcailles} eager />");
+    expect(read("src/app/page.tsx")).toContain("<AmbiancePhoto photo={ambiancePhotos.cabasFacadeTissee} eager />");
     expect(read("src/app/collection/page.tsx")).toContain("chapterPhotos[index]");
   });
 });

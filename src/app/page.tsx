@@ -17,7 +17,7 @@ export default function Home() {
             <Link className="text-action" href="/alerte">Être informé du lancement <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
-        <AmbiancePhoto photo={ambiancePhotos.modeleSacEcailles} eager />
+        <AmbiancePhoto photo={ambiancePhotos.cabasFacadeTissee} eager />
         <p className="hero-index" aria-hidden="true">ÉDITION 01 / BIENTÔT</p>
       </section>
 

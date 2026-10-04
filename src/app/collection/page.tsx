@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AmbiancePhoto } from "@/components/ambiance-photo";
+import { TextilePanel } from "@/components/textile-panel";
 import { ambiancePhotos } from "@/lib/photos";
 import { chapters } from "@/lib/site";
 
 export const metadata: Metadata = { title: "Collection", description: "La première collection Maila Chic est en préparation. Aucun achat n'est encore ouvert." };
 
-// La ligne : une silhouette nette ; la matière : un tissage ; le détail : les écailles et la chaîne.
-const chapterPhotos = [ambiancePhotos.sacBordeauxVannerie, ambiancePhotos.cabasFacadeTissee, ambiancePhotos.detailSacEcailles];
+// La ligne : une silhouette nette ; la matière : un tissage. Le détail attend sa photographie.
+const chapterPhotos = [ambiancePhotos.sacBordeauxVannerie, ambiancePhotos.cabasFacadeTissee];
 
 export default function CollectionPage() {
   return (
@@ -20,7 +21,9 @@ export default function CollectionPage() {
       <section className="collection-grid" aria-label="Aperçu des futurs chapitres">
         {chapters.map((chapter, index) => (
           <article className="collection-card" key={chapter.number}>
-            <AmbiancePhoto photo={chapterPhotos[index]} />
+            {chapterPhotos[index]
+              ? <AmbiancePhoto photo={chapterPhotos[index]} />
+              : <TextilePanel variant="grain" label={`Emplacement temporaire, ${chapter.title.toLowerCase()}`} />}
             <div><p>{chapter.number} · {chapter.status}</p><h2>{chapter.title}</h2><p>{chapter.description}</p></div>
           </article>
         ))}

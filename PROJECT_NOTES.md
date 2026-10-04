@@ -20,7 +20,7 @@ Conséquence pour Maila Chic : la V1 ne montre aucune fausse référence. Elle o
 - **Composition** : éditoriale, asymétrique, avec une idée principale par section.
 - **Palette** : ivoire, encre, argile et sauge. L'argile sert de ponctuation, pas de décor permanent.
 - **Typographie** : serif éditoriale de système pour les titres, sans-serif sobre pour les informations. Aucune police distante n'est requise au build.
-- **Images** : en V1, trois photographies d'ambiance provisoires (`src/assets/ambiance/`, déclarées dans `src/lib/photos.ts`) occupent le héros et les cartes de collection. Elles montrent des pièces d'inspiration qui n'appartiennent pas à Maila Chic : la légende le dit toujours, les visuels portant le logo d'une autre marque sont exclus, et elles seront remplacées par les photographies de la collection. Les panneaux textiles en CSS restent ailleurs comme études graphiques temporaires.
+- **Images** : en V1, deux photographies d'ambiance provisoires (`src/assets/ambiance/`, déclarées dans `src/lib/photos.ts`) occupent le héros et les cartes de collection. Elles montrent des pièces d'inspiration qui n'appartiennent pas à Maila Chic : la légende le dit toujours, les visuels portant le logo ou le monogramme d'une autre marque (y compris sur un fermoir) sont exclus, et elles seront remplacées par les photographies de la collection. Les panneaux textiles en CSS restent ailleurs comme études graphiques temporaires.
 - **Mouvement** : limité aux retours d'interaction, avec respect de `prefers-reduced-motion`.
 
 ## Le plus proposé
