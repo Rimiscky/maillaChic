@@ -1,18 +1,34 @@
 import Link from "next/link";
+import { WaxBand } from "@/components/wax-band";
 import { site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div>
-        <p className="footer-brand">{site.name}</p>
-        <p>La première collection est en préparation.</p>
-      </div>
-      <nav className="footer-links" aria-label="Informations légales">
-        <Link href="/mentions-legales">Mentions légales</Link>
-        <Link href="/confidentialite">Confidentialité</Link>
-      </nav>
-      <p className="asset-note">Photographies d'ambiance provisoires : les pièces montrées inspirent la direction artistique et ne font pas partie de la collection Maila Chic. Elles seront remplacées par les photographies de la collection.</p>
-    </footer>
+    <>
+      <WaxBand id="footer" />
+      <footer className="site-footer">
+        <div className="footer-intro">
+          <p className="footer-brand"><span>Maila</span><span>Chic</span></p>
+          <p>{site.tagline}</p>
+          <p>La première collection est en préparation.</p>
+        </div>
+        <nav className="footer-column" aria-label="Pages">
+          <p>Maila Chic</p>
+          <Link href="/univers">L'univers</Link>
+          <Link href="/collection">Collection</Link>
+          <Link href="/carnet">Carnet</Link>
+        </nav>
+        <nav className="footer-column footer-links" aria-label="Informations légales">
+          <p>Informations</p>
+          <Link href="/mentions-legales">Mentions légales</Link>
+          <Link href="/confidentialite">Confidentialité</Link>
+        </nav>
+        <div className="footer-column">
+          <p>Lancement</p>
+          <Link href="/alerte">Être informé de l'ouverture</Link>
+        </div>
+        <p className="asset-note">Photographies d'ambiance provisoires : les pièces montrées inspirent la direction artistique et ne font pas partie de la collection Maila Chic. Elles seront remplacées par les photographies de la collection.</p>
+      </footer>
+    </>
   );
 }

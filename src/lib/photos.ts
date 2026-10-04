@@ -11,6 +11,7 @@ import sacPerleEventail from "@/assets/ambiance/sac-perle-eventail.webp";
 import sacRaffiaVertVisage from "@/assets/ambiance/sac-raffia-vert-visage.webp";
 import sacsNoeudsWax from "@/assets/ambiance/sacs-noeuds-wax.webp";
 import sacVoyageWaxJardin from "@/assets/ambiance/sac-voyage-wax-jardin.webp";
+import vesteVolantsWax from "@/assets/ambiance/veste-volants-wax.webp";
 import cabasFacadeTissee from "@/assets/ambiance/cabas-facade-tissee.webp";
 import femmeCabasPatchwork from "@/assets/ambiance/femme-cabas-patchwork.webp";
 import minaudiereSpherique from "@/assets/ambiance/minaudiere-spherique.webp";
@@ -136,4 +137,17 @@ export const inspirationPhotos = {
     alt: "Femme en robe noire tenant devant elle un sac de voyage en wax aux fleurs bleues et jaunes, anses de cuir, dans un jardin.",
     label: "Sac de voyage en wax",
   },
+  vesteVolantsWax: {
+    image: vesteVolantsWax,
+    alt: "Femme en chemise blanche et pantalon noir, épaules couvertes d'une cape à volants en wax multicolores.",
+    label: "Volants en wax",
+  },
 } satisfies Record<string, InspirationPhoto>;
+
+/** Familles de pièces envisagées pour la première collection (intention, pas encore de catalogue). */
+export const universes = [
+  { title: "Sacs", photo: ambiancePhotos.cabasFacadeTissee },
+  { title: "Petite maroquinerie", photo: inspirationPhotos.pochetteDemiLuneWax },
+  { title: "Accessoires", photo: ambiancePhotos.sacPyramideKente },
+  { title: "Vêtements", photo: inspirationPhotos.vesteVolantsWax },
+] as const;

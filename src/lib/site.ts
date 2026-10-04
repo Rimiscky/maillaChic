@@ -4,7 +4,8 @@ export const site = {
   status: "Préouverture",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   description:
-    "Maila Chic prépare sa première collection, pensée autour des matières, des lignes et des détails. Découvrez le projet avant son ouverture.",
+    "Maila Chic prépare une première collection qui associe tissu pagne africain et cuir, pensée avec des artisans. Découvrez l'univers avant l'ouverture.",
+  tagline: "L'authenticité africaine, le chic à la française.",
 } as const;
 
 export const navigation = [
