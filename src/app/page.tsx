@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AmbiancePhoto } from "@/components/ambiance-photo";
-import { TextilePanel } from "@/components/textile-panel";
 import { ambiancePhotos } from "@/lib/photos";
 import { chapters, launchPrinciples } from "@/lib/site";
 
@@ -17,7 +16,7 @@ export default function Home() {
             <Link className="text-action" href="/alerte">Être informé du lancement <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
-        <AmbiancePhoto photo={ambiancePhotos.cabasFacadeTissee} eager />
+        <AmbiancePhoto photo={ambiancePhotos.femmeCabasPatchwork} eager />
         <p className="hero-index" aria-hidden="true">ÉDITION 01 / BIENTÔT</p>
       </section>
 
@@ -48,7 +47,7 @@ export default function Home() {
       </section>
 
       <section className="manifesto-grid">
-        <TextilePanel variant="thread" label="Étude graphique temporaire inspirée du fil" />
+        <AmbiancePhoto photo={ambiancePhotos.sacBogolanLeve} />
         <div className="manifesto-copy">
           <p className="eyebrow">Une préouverture honnête</p>
           <h2>Le beau commence par la précision.</h2>

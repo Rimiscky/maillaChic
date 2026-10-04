@@ -60,24 +60,14 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .photo-panel { background: var(--sand); }
 .photo-panel::before { display: none; }
 .photo-panel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.photo-panel img[data-focus="patchwork"] { object-position: 50% 35%; }
+.photo-panel img[data-focus="bogolan"] { object-position: 50% 25%; }
+.photo-panel img[data-focus="kente"] { object-position: 50% 30%; }
+.photo-panel img[data-focus="spherique"] { object-position: 50% 55%; }
 .photo-panel img[data-focus="bordeaux"] { object-position: 50% 50%; }
 .photo-panel img[data-focus="cabas"] { object-position: 50% 55%; }
 /* Voile bas pour garder la légende lisible sur toutes les photographies. */
 .photo-panel::after { z-index: 1; background: linear-gradient(to top, rgba(20,16,13,.62), rgba(20,16,13,0) 32%); }
-.textile-mark { position: absolute; z-index: 3; top: 50%; left: 50%; color: rgba(250,247,240,.72); font-family: var(--serif); font-size: clamp(5rem, 13vw, 14rem); font-style: italic; letter-spacing: -.1em; transform: translate(-50%, -50%); }
-.textile-fold { background: #844330; }
-.textile-fold::before { background: linear-gradient(118deg, transparent 0 24%, rgba(253,228,203,.13) 24.2% 41%, transparent 41.2% 59%, rgba(25,18,14,.3) 59.2% 72%, transparent 72.2%), linear-gradient(35deg, #a85c43, #4e2b25); transform: scale(1.08) rotate(-3deg); }
-.textile-fold::after { inset: 9% 12%; border: 1px solid rgba(250,247,240,.35); border-radius: 49% 51% 15% 85% / 38% 27% 73% 62%; transform: rotate(16deg); }
-.textile-weave { background: #646b5a; }
-.textile-weave::before { background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, transparent 1px 8px), repeating-linear-gradient(0deg, rgba(20,25,18,.1) 0 1px, transparent 1px 7px); }
-.textile-weave::after { inset: 13%; border: 1px solid rgba(255,255,255,.35); transform: rotate(-8deg); }
-.textile-thread { background: #2e2926; }
-.textile-thread::before { inset: -20%; border: 1px solid rgba(216,201,181,.5); border-radius: 50%; box-shadow: 0 0 0 4rem rgba(216,201,181,.04), 0 0 0 8rem rgba(216,201,181,.04), 0 0 0 12rem rgba(216,201,181,.04); }
-.textile-thread::after { background: repeating-radial-gradient(circle at 75% 20%, transparent 0 22px, rgba(216,201,181,.12) 23px 24px); }
-.textile-grain { background: #c3a98e; }
-.textile-grain figcaption { border-top-color: rgba(36,31,27,.4); color: var(--ink); }
-.textile-grain::before { background: radial-gradient(ellipse at 20% 30%, rgba(255,255,255,.22), transparent 25%), repeating-linear-gradient(12deg, transparent 0 6px, rgba(70,43,30,.08) 7px 8px); filter: contrast(1.4); }
-.textile-grain::after { inset: 20% 15%; border: 1px solid rgba(75,48,35,.35); border-radius: 50%; }
 
 .intro-band { display: grid; grid-template-columns: 5rem minmax(0, 1.2fr) minmax(18rem, .8fr); gap: clamp(2rem, 6vw, 7rem); padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 6vw, 7rem); background: var(--ivory); border-bottom: 1px solid var(--line); }
 .intro-band h2, .section-header h2, .manifesto-copy h2, .signup-callout h2, .page-hero h1, .transparency-note h2, .next-step h2 { margin: .8rem 0 0; font-size: clamp(3rem, 6vw, 7rem); line-height: .92; letter-spacing: -.05em; }

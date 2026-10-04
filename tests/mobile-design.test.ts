@@ -37,7 +37,7 @@ describe("design mobile", () => {
 
   it("garde des textes lisibles sur les fonds sombres et clairs", () => {
     expect(css).toContain(".manifesto-copy .eyebrow { color: var(--sand); }");
-    expect(css).toMatch(/\.textile-grain figcaption \{[^}]*color: var\(--ink\)/);
+    expect(css).toMatch(/\.photo-panel::after \{[^}]*linear-gradient\(to top, rgba\(20,16,13,\.62\)/);
   });
 
   it("signale la page courante dans le menu mobile et le referme proprement", () => {

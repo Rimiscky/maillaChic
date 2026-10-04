@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { TextilePanel } from "@/components/textile-panel";
+import { AmbiancePhoto } from "@/components/ambiance-photo";
+import { ambiancePhotos } from "@/lib/photos";
 
 export const metadata: Metadata = { title: "L'univers", description: "La direction créative et les principes de préouverture de Maila Chic." };
 
@@ -12,11 +13,11 @@ export default function UniversPage() {
         <p>Maila Chic se construit avec une règle simple : ne rien affirmer avant de pouvoir le montrer. La première collection sera présentée avec ses matières, ses détails et ses conditions de fabrication.</p>
       </section>
       <section className="editorial-pair">
-        <TextilePanel variant="grain" label="Étude graphique temporaire de matière" />
+        <AmbiancePhoto photo={ambiancePhotos.sacPyramideKente} />
         <article>
           <p className="section-number">01 / 03</p>
           <h2>Observer avant de nommer.</h2>
-          <p>Les visuels actuels posent un rythme et une palette. Ils ne représentent ni un produit final, ni un atelier partenaire. Les photographies réelles les remplaceront avant la publication officielle.</p>
+          <p>Les photographies actuelles posent un rythme et une palette. Elles montrent des pièces d'inspiration qui n'appartiennent pas à Maila Chic, ni à un atelier partenaire. Les photographies de la collection les remplaceront avant la publication officielle.</p>
         </article>
       </section>
       <section className="values-strip" aria-label="Principes de création">
