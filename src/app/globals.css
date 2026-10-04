@@ -104,7 +104,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .values-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
 .values-strip article { min-height: 22rem; padding: 2.5rem; border-right: 1px solid var(--line); }
 .values-strip span { color: var(--clay-dark); font-size: .7rem; }
-.values-strip h2 { margin: 5rem 0 1rem; font-size: 2.5rem; }
+.values-strip h2 { margin: 1.5rem 0 1rem; font-size: 2.5rem; }
 .values-strip p { color: #5e554d; }
 .next-step { padding: clamp(5rem, 9vw, 9rem) clamp(1.25rem, 7vw, 8rem); background: var(--sand); }
 .next-step h2 { max-width: 11ch; margin-bottom: 2rem; }
@@ -121,10 +121,26 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .transparency-note h2 { max-width: 14ch; }
 .transparency-note > p:not(.eyebrow) { max-width: 44rem; margin: 2rem 0; color: #5e554d; }
 .journal-list { padding: 0 clamp(1.25rem, 7vw, 8rem) 7rem; }
-.journal-list article { display: grid; grid-template-columns: 8rem .8fr 1.2fr; gap: 3rem; padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
+.journal-list article { display: grid; grid-template-columns: 8rem .8fr 1.2fr minmax(12rem, .7fr); gap: 3rem; align-items: start; padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
 .journal-list h2, .journal-list p { margin: 0; }
 .journal-list h2 { font-size: 2rem; }
-.journal-list article > p:last-child { color: #5e554d; }
+.journal-list article > p:last-of-type { color: #5e554d; }
+
+/* Vignettes d'inspiration : format 4:5 constant, légende courte sous l'image. */
+.inspiration-photo { margin: 0; }
+.inspiration-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; background: var(--sand); }
+.inspiration-photo figcaption { margin-top: .7rem; color: #5e554d; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.inspiration-note { max-width: 44rem; margin: 0; padding: 1.5rem clamp(1.25rem, 6vw, 7rem) 3rem; color: #5e554d; font-size: .8rem; }
+.journal-list .inspiration-note { padding: 2rem 0 0; }
+.inspiration-section { padding: clamp(5rem, 10vw, 10rem) clamp(1.25rem, 6vw, 7rem); background: var(--ivory); border-top: 1px solid var(--line); }
+.inspiration-header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 26rem); gap: 2rem 4rem; align-items: end; margin-bottom: clamp(2.5rem, 5vw, 4.5rem); }
+.inspiration-header h2 { margin: .8rem 0 0; font-size: clamp(2.6rem, 5vw, 5.5rem); line-height: .95; letter-spacing: -.04em; }
+.inspiration-header > p:last-child { margin: 0; color: #5e554d; }
+.inspiration-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2.5rem); }
+/* Rythme éditorial : la colonne centrale descend pour casser l'alignement en grille. */
+.inspiration-grid > :nth-child(3n + 2) { margin-top: clamp(2rem, 6vw, 6rem); }
+.values-strip .inspiration-photo { margin-bottom: 2rem; }
+.values-strip .inspiration-photo + span { display: block; }
 .legal-page { max-width: 62rem; min-height: 65vh; margin: 0 auto; padding: clamp(5rem, 10vw, 9rem) 1.25rem; }
 .legal-page h1 { margin: 1rem 0 3rem; font-size: clamp(3rem, 7vw, 6rem); }
 .legal-page h2 { margin-top: 3rem; font-size: 1.8rem; }
@@ -195,8 +211,12 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
   .values-strip, .collection-grid { grid-template-columns: 1fr; }
   .values-strip article, .collection-card { border-right: 0; border-bottom: 1px solid var(--line); }
   .values-strip article { min-height: auto; }
-  .values-strip h2 { margin-top: 3rem; }
   .journal-list article { grid-template-columns: 1fr; gap: .75rem; }
+  .journal-list .inspiration-photo { max-width: 26rem; margin-top: .75rem; }
+  .inspiration-header { grid-template-columns: 1fr; }
+  .inspiration-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .inspiration-grid > :nth-child(3n + 2) { margin-top: 0; }
+  .inspiration-grid > :nth-child(2n) { margin-top: 2.5rem; }
   .alert-page { grid-template-columns: 1fr; }
   .form-panel { min-height: 34rem; }
   .site-footer { grid-template-columns: 1fr; }
@@ -211,7 +231,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
   .signup-form .button { width: 100%; }
   .intro-band, .chapters-section, .page-hero, .next-step, .transparency-note,
   .hero-copy, .manifesto-copy, .signup-callout, .editorial-pair article, .values-strip article,
-  .collection-card > div, .journal-list, .alert-intro, .form-panel { padding-right: 1.25rem; padding-left: 1.25rem; }
+  .collection-card > div, .journal-list, .alert-intro, .form-panel, .inspiration-section { padding-right: 1.25rem; padding-left: 1.25rem; }
+  .inspiration-grid { gap: .9rem; }
   .page-hero { min-height: auto; padding-top: 4rem; padding-bottom: 3.5rem; }
   .intro-band h2, .section-header h2, .manifesto-copy h2, .signup-callout h2, .page-hero h1, .transparency-note h2, .next-step h2 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
   .chapter-row { gap: 1rem; }
