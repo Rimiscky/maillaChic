@@ -15,7 +15,7 @@ describe("photographies d'ambiance provisoires", () => {
       "grand-sac-bogolan-porte.webp", "minaudiere-spherique.webp", "pochette-demi-lune-wax.webp", "portrait-marche-panier.webp",
       "sac-bogolan-chaine.webp", "sac-bogolan-leve.webp", "sac-bordeaux-vannerie.webp", "sac-cuir-guitare.webp",
       "sac-franges-multicolores.webp", "sac-perle-eventail.webp", "sac-pyramide-kente.webp", "sac-raffia-vert-visage.webp",
-      "sac-voyage-wax-jardin.webp", "sacs-noeuds-wax.webp",
+      "sac-voyage-wax-jardin.webp", "sacs-noeuds-wax.webp", "veste-volants-wax.webp",
     ]);
     for (const file of files) expect(existsSync(new URL(`src/assets/ambiance/${file}`, root))).toBe(true);
     expect(readdirSync(new URL("src/", root)).filter((file) => /\.(jpe?g|png|webp)$/i.test(file))).toEqual([]);
@@ -29,7 +29,7 @@ describe("photographies d'ambiance provisoires", () => {
 
   it("décrit chaque image pour les lecteurs d'écran", () => {
     const alts = [...photos.matchAll(/alt: "([^"]+)"/g)].map(([, alt]) => alt);
-    expect(alts).toHaveLength(18);
+    expect(alts).toHaveLength(19);
     for (const alt of alts) expect(alt.length).toBeGreaterThan(40);
   });
 

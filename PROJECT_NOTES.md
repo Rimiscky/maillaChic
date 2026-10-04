@@ -17,8 +17,9 @@ Conséquence pour Maila Chic : la V1 ne montre aucune fausse référence. Elle o
 
 ## Direction artistique
 
-- **Composition** : éditoriale, asymétrique, avec une idée principale par section.
-- **Palette** : ivoire, encre, argile et sauge. L'argile sert de ponctuation, pas de décor permanent.
+- **Composition** : inspirée de la maquette fournie : héros texte et photo, bandeau graphique wax, univers en vignettes, inspirations, section artisanat sombre, bandeau d'inscription. Sans prix, panier ni livraison tant que la boutique n'existe pas.
+- **Palette** : crème, brun profond, cognac et or. Le cognac porte les actions, l'or ponctue les sections sombres.
+- **Positionnement** : « L'authenticité africaine, le chic à la française ». Pagne africain et cuir, conception avec des artisans et familles de pièces (sacs, petite maroquinerie, accessoires, vêtements) sont présentés comme des intentions de la première collection, pas comme des faits vérifiés.
 - **Typographie** : serif éditoriale de système pour les titres, sans-serif sobre pour les informations. Aucune police distante n'est requise au build.
 - **Images** : en V1, dix-huit photographies provisoires (`src/assets/ambiance/`, déclarées dans `src/lib/photos.ts`) : six grandes photographies d'ambiance (héros, manifeste, univers, cartes de collection) et douze vignettes d'inspiration (galerie de l'accueil, principes de l'univers, notes du carnet), chaque groupe accompagné de la mention « hors collection Maila Chic ». Les originaux fournis sont conservés dans `photos-sources/`, hors du code publié ; chaque photo retenue a été vérifiée agrandie (étiquettes, fermoirs, quincaillerie). Elles montrent des pièces d'inspiration qui n'appartiennent pas à Maila Chic : la légende le dit toujours, les visuels portant le logo ou le monogramme d'une autre marque (y compris sur un fermoir) sont exclus, et elles seront remplacées par les photographies de la collection.
 - **Mouvement** : limité aux retours d'interaction, avec respect de `prefers-reduced-motion`.

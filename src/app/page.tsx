@@ -1,90 +1,106 @@
 import Link from "next/link";
 import { AmbiancePhoto } from "@/components/ambiance-photo";
-import { InspirationPhoto } from "@/components/inspiration-photo";
-import { INSPIRATION_NOTE, ambiancePhotos, inspirationPhotos } from "@/lib/photos";
-import { chapters, launchPrinciples } from "@/lib/site";
 import { ArrowIcon } from "@/components/arrow-icon";
+import { Icon, Ornament } from "@/components/icons";
+import { InspirationPhoto } from "@/components/inspiration-photo";
+import { WaxBand } from "@/components/wax-band";
+import { INSPIRATION_NOTE, ambiancePhotos, inspirationPhotos, universes } from "@/lib/photos";
 
 const homeInspirations = [
   inspirationPhotos.sacFrangesMulticolores,
-  inspirationPhotos.pochetteDemiLuneWax,
+  inspirationPhotos.sacPerleEventail,
   inspirationPhotos.sacRaffiaVertVisage,
   inspirationPhotos.sacCuirGuitare,
   inspirationPhotos.cabasSoclesTisses,
-  inspirationPhotos.sacPerleEventail,
 ];
+
+// Intentions de la première collection : rien ici n'affirme une fabrication déjà vérifiée.
+const heroPromises = [
+  { icon: "fabric", text: "Tissu pagne africain et cuir" },
+  { icon: "hands", text: "Pensée avec des artisans" },
+  { icon: "durable", text: "Des pièces conçues pour durer" },
+] as const;
+
+const craftPoints = [
+  { icon: "needle", text: "Le savoir-faire à l'honneur" },
+  { icon: "leather", text: "Pagne africain et cuir" },
+  { icon: "eye", text: "Des matières documentées" },
+  { icon: "durable", text: "Des pièces pensées pour durer" },
+] as const;
 
 export default function Home() {
   return (
     <>
       <section className="home-hero">
         <div className="hero-copy">
-          <p className="eyebrow">Maison en préouverture</p>
-          <h1>La première collection se dessine.</h1>
-          <p className="hero-lead">Une maison de mode pensée comme un dialogue entre la ligne, la matière et le détail. Maila Chic ouvre aujourd'hui son carnet de création.</p>
+          <p className="eyebrow">Préouverture · Collection 01</p>
+          <h1>L'authenticité africaine, <em>le chic</em> à la française.</h1>
+          <p className="hero-lead">Maila Chic prépare une première collection qui associe tissu pagne africain et cuir, pensée avec des artisans. Découvrez l'univers avant l'ouverture.</p>
           <div className="hero-actions">
-            <Link className="button button-dark" href="/collection">Voir ce qui se prépare</Link>
-            <Link className="text-action" href="/alerte">Être informé du lancement <ArrowIcon /></Link>
+            <Link className="button button-accent" href="/collection">Découvrir la collection</Link>
+            <Link className="button button-outline" href="/alerte">Être informé du lancement</Link>
           </div>
+          <ul className="hero-promises">
+            {heroPromises.map((item) => <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>)}
+          </ul>
         </div>
         <AmbiancePhoto photo={ambiancePhotos.femmeCabasPatchwork} eager />
-        <p className="hero-index" aria-hidden="true">ÉDITION 01 / BIENTÔT</p>
+        <p className="hero-badge" aria-hidden="true"><span>Collection 01</span><span>Bientôt</span></p>
       </section>
 
-      <section className="intro-band" aria-labelledby="intro-title">
-        <p className="section-number">01</p>
-        <div>
-          <p className="eyebrow">L'intention</p>
-          <h2 id="intro-title">Révéler moins.<br />Raconter mieux.</h2>
-        </div>
-        <p>Avant de présenter les pièces, Maila Chic construit un langage clair : des formes lisibles, des matières documentées et des détails qui ont une raison d'être.</p>
-      </section>
+      <WaxBand id="hero" />
 
-      <section className="chapters-section" aria-labelledby="chapters-title">
-        <header className="section-header">
-          <p className="eyebrow">Carnet de création</p>
-          <h2 id="chapters-title">Trois chapitres<br />avant l'ouverture.</h2>
+      <section className="universes-section" aria-labelledby="universes-title">
+        <header className="centered-heading">
+          <h2 id="universes-title">Nos univers</h2>
+          <Ornament />
+          <p>Les familles de pièces envisagées pour la première collection.</p>
         </header>
-        <div className="chapters-list">
-          {chapters.map((chapter) => (
-            <article className="chapter-row" key={chapter.number}>
-              <p>{chapter.number}</p>
-              <h3>{chapter.title}</h3>
-              <p>{chapter.description}</p>
-              <span>{chapter.status}</span>
+        <div className="universes-grid">
+          {universes.map((universe) => (
+            <article className="universe-card" key={universe.title}>
+              {/* eslint-disable-next-line @next/next/no-img-element -- next/image ajoute des styles en ligne bloqués par la CSP */}
+              <img src={universe.photo.image.src} width={universe.photo.image.width} height={universe.photo.image.height} alt={universe.photo.alt} loading="lazy" decoding="async" />
+              <div><h3>{universe.title}</h3><span>Bientôt</span></div>
             </article>
           ))}
         </div>
+        <p className="inspiration-note centered-note">{INSPIRATION_NOTE}</p>
       </section>
 
       <section className="inspiration-section" aria-labelledby="inspiration-title">
-        <div className="inspiration-header">
-          <div>
-            <p className="eyebrow">Carnet d'inspiration</p>
-            <h2 id="inspiration-title">Ce qui nous inspire.</h2>
-          </div>
-          <p>{INSPIRATION_NOTE}</p>
-        </div>
-        <div className="inspiration-grid">
+        <header className="centered-heading">
+          <h2 id="inspiration-title">Nos inspirations</h2>
+          <Ornament />
+        </header>
+        <div className="inspiration-grid inspiration-row">
           {homeInspirations.map((photo) => <InspirationPhoto photo={photo} key={photo.label} />)}
         </div>
-      </section>
-
-      <section className="manifesto-grid">
-        <AmbiancePhoto photo={ambiancePhotos.sacBogolanLeve} />
-        <div className="manifesto-copy">
-          <p className="eyebrow">Une préouverture honnête</p>
-          <h2>Le beau commence par la précision.</h2>
-          <ol>{launchPrinciples.map((principle) => <li key={principle}>{principle}</li>)}</ol>
-          <Link className="text-action" href="/univers">Entrer dans l'univers <ArrowIcon /></Link>
+        <div className="centered-action">
+          <Link className="button button-accent" href="/collection">Voir la collection en préparation</Link>
         </div>
       </section>
 
-      <section className="signup-callout">
-        <p className="eyebrow">La suite, sans bruit inutile</p>
-        <h2>Recevez uniquement les étapes qui comptent.</h2>
-        <p>La révélation de la première collection, l'ouverture et les informations confirmées.</p>
-        <Link className="button button-light" href="/alerte">Rejoindre la liste de lancement</Link>
+      <section className="craft-section" aria-labelledby="craft-title">
+        <div className="craft-copy">
+          <h2 id="craft-title">L'artisanat au cœur de la démarche</h2>
+          <Ornament />
+          <p>Chaque pièce de la première collection est pensée avec des artisans. Leurs savoir-faire, les matières et les conditions de fabrication seront présentés avec chaque fiche, une fois vérifiés.</p>
+          <Link className="button button-light" href="/univers">Découvrir l'univers</Link>
+        </div>
+        <ul className="craft-points">
+          {craftPoints.map((item) => <li key={item.text}><Icon name={item.icon} size={36} /><span>{item.text}</span></li>)}
+        </ul>
+        <AmbiancePhoto photo={ambiancePhotos.sacBogolanLeve} />
+      </section>
+
+      <section className="newsletter-band" aria-labelledby="newsletter-title">
+        <Icon name="envelope" size={44} />
+        <div>
+          <h2 id="newsletter-title">Rejoignez l'univers Maila Chic</h2>
+          <p>Recevez la révélation de la collection et la date d'ouverture, sans envois superflus.</p>
+        </div>
+        <Link className="button button-accent" href="/alerte">Je m'inscris <ArrowIcon /></Link>
       </section>
     </>
   );
