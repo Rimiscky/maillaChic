@@ -47,3 +47,14 @@ describe("design mobile", () => {
     expect(mediaBlock("max-width: 900px")).toContain('.mobile-menu a[aria-current="page"]');
   });
 });
+
+describe("icônes identiques sur mobile et ordinateur", () => {
+  it("dessine les flèches en SVG plutôt qu'avec le caractère ↗, affiché en emoji sur iOS", () => {
+    for (const page of ["src/app/page.tsx", "src/app/univers/page.tsx", "src/app/carnet/page.tsx"]) {
+      const source = read(page);
+      expect(source, page).not.toContain("↗");
+      expect(source, page).toContain("<ArrowIcon />");
+    }
+    expect(read("src/components/arrow-icon.tsx")).toContain('stroke="currentColor"');
+  });
+});

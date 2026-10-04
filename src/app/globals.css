@@ -50,8 +50,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .button-dark:hover { background: var(--clay-dark); }
 .button-light { background: var(--ivory); color: var(--ink); }
 .text-action { gap: .5rem; border-bottom: 1px solid currentColor; font-size: .82rem; font-weight: 700; }
-.text-action span { transition: transform .2s ease; }
-.text-action:hover span { transform: translate(3px, -3px); }
+.arrow-icon { flex: none; transition: transform .2s ease; }
+.text-action:hover .arrow-icon { transform: translate(3px, -3px); }
 .hero-index { position: absolute; z-index: 4; right: 1.25rem; bottom: 4.5rem; color: var(--ivory); writing-mode: vertical-rl; }
 
 .textile-panel { position: relative; min-height: 28rem; margin: 0; overflow: hidden; background: var(--sand); isolation: isolate; }

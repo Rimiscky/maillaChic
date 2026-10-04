@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { InspirationPhoto } from "@/components/inspiration-photo";
 import { INSPIRATION_NOTE, inspirationPhotos } from "@/lib/photos";
+import { ArrowIcon } from "@/components/arrow-icon";
 
 export const metadata: Metadata = { title: "Carnet", description: "Le carnet de préouverture de Maila Chic." };
 
@@ -19,7 +20,7 @@ export default function CarnetPage() {
         {entries.map((entry) => <article key={entry.date}><p>{entry.date}</p><h2>{entry.title}</h2><p>{entry.text}</p><InspirationPhoto photo={entry.photo} /></article>)}
         <p className="inspiration-note">{INSPIRATION_NOTE}</p>
       </section>
-      <section className="next-step"><p className="eyebrow">Prochaine publication</p><h2>La première note de collection.</h2><Link className="text-action" href="/alerte">Recevoir l'annonce <span aria-hidden="true">↗</span></Link></section>
+      <section className="next-step"><p className="eyebrow">Prochaine publication</p><h2>La première note de collection.</h2><Link className="text-action" href="/alerte">Recevoir l'annonce <ArrowIcon /></Link></section>
     </>
   );
 }
