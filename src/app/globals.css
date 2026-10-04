@@ -249,10 +249,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
    Direction de la maquette : en-tête, accueil, artisanat, pied de page.
    ------------------------------------------------------------------ */
 .top-bar { margin: 0; padding: .55rem 1rem; background: var(--ink); color: #f3e7d6; font-size: .72rem; letter-spacing: .08em; text-align: center; }
-.brand { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 44px; width: fit-content; font-family: var(--serif); line-height: 1; }
-.brand-name { font-size: 2rem; letter-spacing: .16em; text-transform: uppercase; }
-.brand-sub { display: flex; align-items: center; gap: .5rem; margin-top: .2rem; color: var(--clay); font-size: .7rem; letter-spacing: .42em; text-transform: uppercase; }
-.brand-sub::before, .brand-sub::after { width: 1.1rem; height: 1px; background: currentColor; content: ""; }
+.brand { display: flex; flex-direction: column; justify-content: center; min-height: 44px; width: fit-content; font-family: var(--serif); font-size: 1.65rem; font-weight: 700; line-height: .72; letter-spacing: -.06em; }
+.brand-word-accent { margin-left: 1.1rem; color: var(--clay); font-style: italic; font-weight: 400; }
 .desktop-nav a[aria-current="page"] { color: var(--clay); }
 .desktop-nav a[aria-current="page"]::after { transform: scaleX(1); }
 .header-cta { border-color: var(--clay); color: var(--clay); }
@@ -312,8 +310,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .newsletter-band p { margin: .35rem 0 0; color: #5e554d; }
 
 .site-footer { grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; background: var(--ink); color: #e9dcc9; }
-.footer-brand { display: flex; flex-direction: column; align-items: flex-start; margin: 0 0 1rem; font: 400 1.6rem var(--serif); letter-spacing: .16em; text-transform: uppercase; }
-.footer-brand span + span { color: var(--gold); font-size: .65rem; letter-spacing: .42em; }
+.footer-brand { display: flex; flex-direction: column; margin: 0 0 1.25rem; color: var(--ivory); font: 700 1.9rem var(--serif); line-height: .72; letter-spacing: -.06em; }
+.footer-brand .brand-word-accent { color: var(--gold); }
 .footer-intro p:not(.footer-brand) { margin: .3rem 0 0; font-size: .85rem; }
 .footer-column { display: grid; align-content: start; gap: .1rem; }
 .footer-column > p { margin: 0 0 .5rem; color: var(--ivory); font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
@@ -343,10 +341,14 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 
 @media (max-width: 520px) {
   .hero-copy h1 { font-size: clamp(2.5rem, 11vw, 3.4rem); }
+  .top-bar-more { display: none; }
+  .universe-card div { padding: 3rem .5rem 1rem; }
+  .universe-card h3 { font-size: .7rem; letter-spacing: .06em; overflow-wrap: anywhere; }
+  .site-footer { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.25rem; }
+  .footer-intro, .asset-note, .footer-launch { grid-column: 1 / -1; }
   .page-hero h1, .alert-intro h1, .transparency-note h2, .next-step h2 { font-size: clamp(2.4rem, 10vw, 3.2rem); }
   .hero-promises { display: grid; gap: 1rem; }
   .hero-promises li { max-width: none; }
   .newsletter-band { flex-direction: column; text-align: center; }
   .newsletter-band .button { width: 100%; }
-  .site-footer { grid-template-columns: 1fr; }
 }
