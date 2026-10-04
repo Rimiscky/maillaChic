@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "echo \"Build deja realise par GitHub Actions\"",
-    "start": "next start",
+    "build": "node scripts/hostinger-build.mjs",
+    "start": "node .next/standalone/server.js",
     "lint": "eslint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",

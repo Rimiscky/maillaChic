@@ -1,0 +1,17 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/alerte/page": "/alerte",
+  "/api/signup/route": "/api/signup",
+  "/carnet/page": "/carnet",
+  "/collection/page": "/collection",
+  "/confidentialite/page": "/confidentialite",
+  "/icon.svg/route": "/icon.svg",
+  "/manifest.webmanifest/route": "/manifest.webmanifest",
+  "/mentions-legales/page": "/mentions-legales",
+  "/opengraph-image/route": "/opengraph-image",
+  "/page": "/",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/univers/page": "/univers"
+}

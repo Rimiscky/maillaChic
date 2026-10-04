@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /
+
+Host: https://mailachic.rimiscky.fr
+Sitemap: https://mailachic.rimiscky.fr/sitemap.xml

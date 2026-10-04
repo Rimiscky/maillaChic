@@ -15,6 +15,8 @@ const apiHeaders = [{ key: "Content-Security-Policy", value: "default-src 'none'
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Hostinger (application Node.js) exige un serveur autonome : .next/standalone/server.js.
+  output: "standalone",
   async headers() {
     return [
       { source: "/(.*)", headers: securityHeaders },
