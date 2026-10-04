@@ -29,7 +29,7 @@ describe("photographies d'ambiance provisoires", () => {
 
   it("décrit chaque image pour les lecteurs d'écran", () => {
     const alts = [...photos.matchAll(/alt: "([^"]+)"/g)].map(([, alt]) => alt);
-    expect(alts).toHaveLength(19);
+    expect(alts).toHaveLength(20);
     for (const alt of alts) expect(alt.length).toBeGreaterThan(40);
   });
 
@@ -53,9 +53,9 @@ describe("photographies d'ambiance provisoires", () => {
   });
 
   it("utilise les photographies sur l'accueil et la collection", () => {
-    expect(read("src/app/page.tsx")).toContain("<AmbiancePhoto photo={ambiancePhotos.femmeCabasPatchwork} eager />");
+    expect(read("src/app/page.tsx")).toContain("<CollectionFigure visual={collectionHero}");
     expect(read("src/app/page.tsx")).toContain("<AmbiancePhoto photo={ambiancePhotos.sacBogolanLeve} />");
     expect(read("src/app/univers/page.tsx")).toContain("<AmbiancePhoto photo={ambiancePhotos.sacPyramideKente} />");
-    expect(read("src/app/collection/page.tsx")).toContain("chapterPhotos[index]");
+    expect(read("src/app/collection/page.tsx")).toContain("collectionBoards.map");
   });
 });

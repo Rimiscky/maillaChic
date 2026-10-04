@@ -27,7 +27,7 @@ export function Footer() {
           <p>Lancement</p>
           <Link href="/alerte">Être informé de l'ouverture</Link>
         </div>
-        <p className="asset-note">Photographies d'ambiance provisoires : les pièces montrées inspirent la direction artistique et ne font pas partie de la collection Maila Chic. Elles seront remplacées par les photographies de la collection.</p>
+        <p className="asset-note">Les visuels de la collection 01 sont des maquettes de conception Maila Chic, pas des photographies de pièces fabriquées. Photographies d&apos;ambiance provisoires : les autres pièces montrées inspirent la direction artistique et ne font pas partie de la collection Maila Chic.</p>
       </footer>
     </>
   );

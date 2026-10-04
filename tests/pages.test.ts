@@ -58,7 +58,7 @@ describe("parcours public V1", () => {
 describe("direction de la maquette, sans affirmations non vérifiées", () => {
   it("présente pagne, cuir et artisans comme des intentions, sans commerce", () => {
     const home = read("src/app/page.tsx");
-    for (const intention of ["tissu pagne africain et cuir", "pensée avec des artisans", "Nos univers", "Nos inspirations"]) {
+    for (const intention of ["simili cuir et tissu pagne africain", "pensée avec des artisans", "Nos univers", "Nos inspirations"]) {
       expect(home).toContain(intention);
     }
     const publicCopy = `${home}\n${read("src/components/header.tsx")}\n${read("src/components/footer.tsx")}`;

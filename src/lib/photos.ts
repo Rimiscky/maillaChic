@@ -12,6 +12,7 @@ import sacRaffiaVertVisage from "@/assets/ambiance/sac-raffia-vert-visage.webp";
 import sacsNoeudsWax from "@/assets/ambiance/sacs-noeuds-wax.webp";
 import sacVoyageWaxJardin from "@/assets/ambiance/sac-voyage-wax-jardin.webp";
 import vesteVolantsWax from "@/assets/ambiance/veste-volants-wax.webp";
+import modeleSacsUnivers from "@/assets/collection/modele-1.webp";
 import cabasFacadeTissee from "@/assets/ambiance/cabas-facade-tissee.webp";
 import femmeCabasPatchwork from "@/assets/ambiance/femme-cabas-patchwork.webp";
 import minaudiereSpherique from "@/assets/ambiance/minaudiere-spherique.webp";
@@ -146,8 +147,8 @@ export const inspirationPhotos = {
 
 /** Familles de pièces envisagées pour la première collection (intention, pas encore de catalogue). */
 export const universes = [
-  { title: "Sacs", photo: ambiancePhotos.cabasFacadeTissee },
-  { title: "Petite maroquinerie", photo: inspirationPhotos.pochetteDemiLuneWax },
-  { title: "Accessoires", photo: ambiancePhotos.sacPyramideKente },
-  { title: "Vêtements", photo: inspirationPhotos.vesteVolantsWax },
+  { title: "Sacs", image: modeleSacsUnivers, alt: "Maquette Maila Chic : sac à main en simili cuir beige, bas en paille tressée, empiècement et bandoulière en pagne.", mockup: true },
+  { title: "Petite maroquinerie", image: inspirationPhotos.pochetteDemiLuneWax.image, alt: inspirationPhotos.pochetteDemiLuneWax.alt, mockup: false },
+  { title: "Accessoires", image: ambiancePhotos.sacPyramideKente.image, alt: ambiancePhotos.sacPyramideKente.alt, mockup: false },
+  { title: "Vêtements", image: inspirationPhotos.vesteVolantsWax.image, alt: inspirationPhotos.vesteVolantsWax.alt, mockup: false },
 ] as const;
