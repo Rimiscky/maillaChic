@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { AmbiancePhoto } from "@/components/ambiance-photo";
-import { ambiancePhotos } from "@/lib/photos";
+import { InspirationPhoto } from "@/components/inspiration-photo";
+import { INSPIRATION_NOTE, ambiancePhotos, inspirationPhotos } from "@/lib/photos";
 import { chapters, launchPrinciples } from "@/lib/site";
+
+const homeInspirations = [
+  inspirationPhotos.sacFrangesMulticolores,
+  inspirationPhotos.pochetteDemiLuneWax,
+  inspirationPhotos.sacRaffiaVertVisage,
+  inspirationPhotos.sacCuirGuitare,
+  inspirationPhotos.cabasSoclesTisses,
+  inspirationPhotos.sacPerleEventail,
+];
 
 export default function Home() {
   return (
@@ -43,6 +53,19 @@ export default function Home() {
               <span>{chapter.status}</span>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="inspiration-section" aria-labelledby="inspiration-title">
+        <div className="inspiration-header">
+          <div>
+            <p className="eyebrow">Carnet d'inspiration</p>
+            <h2 id="inspiration-title">Ce qui nous inspire.</h2>
+          </div>
+          <p>{INSPIRATION_NOTE}</p>
+        </div>
+        <div className="inspiration-grid">
+          {homeInspirations.map((photo) => <InspirationPhoto photo={photo} key={photo.label} />)}
         </div>
       </section>
 
