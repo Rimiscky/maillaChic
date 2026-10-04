@@ -35,7 +35,8 @@ describe("parcours public V1", () => {
     expect(layout).toContain('<html lang="fr">');
     expect(layout).toContain('href="#contenu"');
     expect(layout).toContain('id="contenu"');
-    expect(footer).toContain("Visuels de direction artistique temporaires");
+    expect(footer).toContain("Photographies d'ambiance provisoires");
+    expect(footer).toContain("ne font pas partie de la collection Maila Chic");
     expect(css).toContain(":focus-visible");
     expect(css).toContain("min-height: 44px");
     expect(css).toContain("prefers-reduced-motion");

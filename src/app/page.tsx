@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { AmbiancePhoto } from "@/components/ambiance-photo";
 import { TextilePanel } from "@/components/textile-panel";
+import { ambiancePhotos } from "@/lib/photos";
 import { chapters, launchPrinciples } from "@/lib/site";
 
 export default function Home() {
@@ -15,7 +17,7 @@ export default function Home() {
             <Link className="text-action" href="/alerte">Être informé du lancement <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
-        <TextilePanel variant="fold" label="Composition textile temporaire pour la préouverture" />
+        <AmbiancePhoto photo={ambiancePhotos.modeleSacEcailles} eager />
         <p className="hero-index" aria-hidden="true">ÉDITION 01 / BIENTÔT</p>
       </section>
 
