@@ -319,6 +319,28 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .footer-column a:hover { color: var(--ivory); }
 .footer-links { flex-direction: column; gap: .1rem; }
 
+/* Maquettes de la collection 01 (visuels fournis par Maila Chic). */
+.collection-figure { margin: 0; }
+.collection-figure a { display: block; }
+.collection-figure img { display: block; width: 100%; height: auto; border-radius: 4px; background: var(--sand); }
+.collection-figure figcaption { margin-top: .7rem; color: #5e554d; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
+.collection-figure a:hover img { box-shadow: 0 0 0 2px var(--clay); }
+.hero-figure { position: relative; display: grid; align-content: center; padding: clamp(1.5rem, 3vw, 3rem); background: #ead8bd; }
+.hero-figure img { width: 100%; max-width: 40rem; margin: 0 auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0; }
+.hero-figure figcaption { margin-top: 1rem; color: #6b4a2f; }
+.model-section { padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem); background: var(--ivory); }
+.model-views { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.9rem, 2vw, 1.5rem); }
+.model-specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 3rem; max-width: 52rem; margin: clamp(2.5rem, 5vw, 3.5rem) auto 0; padding: 2rem clamp(1.25rem, 3vw, 2.5rem); border: 1px solid var(--line); background: var(--paper); }
+.model-specs h3 { margin: 0 0 1rem; font-family: var(--sans); font-size: .75rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--clay-dark); }
+.model-specs dl { display: grid; gap: .55rem; margin: 0; }
+.model-specs dl div { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .55rem; border-bottom: 1px dashed var(--line); }
+.model-specs dt { color: #5e554d; }
+.model-specs dd { margin: 0; font-weight: 700; }
+.model-specs ul { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+.model-specs li::before { content: "·"; margin-right: .6rem; color: var(--clay); font-weight: 700; }
+.boards-section { padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem); background: var(--paper); }
+.boards-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); align-items: start; }
+
 /* Pages secondaires harmonisées avec l'accueil : titres moins serrés, boutons cognac. */
 .page-hero h1, .alert-intro h1, .intro-band h2, .section-header h2, .transparency-note h2, .next-step h2, .editorial-pair h2, .not-found h1 { line-height: 1.02; letter-spacing: -.02em; }
 .page-hero h1 { font-size: clamp(2.8rem, 5.5vw, 5.4rem); }
@@ -328,6 +350,9 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; }
 .button-dark:hover { border-color: var(--clay-dark); background: var(--clay-dark); }
 
 @media (max-width: 900px) {
+  .model-views, .boards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .model-views > :first-child { grid-column: 1 / -1; }
+  .model-specs { grid-template-columns: 1fr; }
   .universes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-badge { display: none; }
   .inspiration-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }

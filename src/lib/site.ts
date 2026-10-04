@@ -4,7 +4,7 @@ export const site = {
   status: "Préouverture",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   description:
-    "Maila Chic prépare une première collection qui associe tissu pagne africain et cuir, pensée avec des artisans. Découvrez l'univers avant l'ouverture.",
+    "Maila Chic prépare une première collection qui associe simili cuir et tissu pagne africain, pensée avec des artisans. Découvrez l'univers avant l'ouverture.",
   tagline: "L'authenticité africaine, le chic à la française.",
 } as const;
 

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { AmbiancePhoto } from "@/components/ambiance-photo";
+import { CollectionFigure } from "@/components/collection-figure";
+import { collectionHero } from "@/lib/collection";
 import { ArrowIcon } from "@/components/arrow-icon";
 import { Icon, Ornament } from "@/components/icons";
 import { InspirationPhoto } from "@/components/inspiration-photo";
@@ -16,14 +18,14 @@ const homeInspirations = [
 
 // Intentions de la première collection : rien ici n'affirme une fabrication déjà vérifiée.
 const heroPromises = [
-  { icon: "fabric", text: "Tissu pagne africain et cuir" },
+  { icon: "fabric", text: "Simili cuir et tissu pagne africain" },
   { icon: "hands", text: "Pensée avec des artisans" },
   { icon: "durable", text: "Des pièces conçues pour durer" },
 ] as const;
 
 const craftPoints = [
   { icon: "needle", text: "Le savoir-faire à l'honneur" },
-  { icon: "leather", text: "Pagne africain et cuir" },
+  { icon: "leather", text: "Simili cuir et pagne" },
   { icon: "eye", text: "Des matières documentées" },
   { icon: "durable", text: "Des pièces pensées pour durer" },
 ] as const;
@@ -35,7 +37,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">Préouverture · Collection 01</p>
           <h1>L'authenticité africaine, <em>le chic</em> à la française.</h1>
-          <p className="hero-lead">Maila Chic prépare une première collection qui associe tissu pagne africain et cuir, pensée avec des artisans. Découvrez l'univers avant l'ouverture.</p>
+          <p className="hero-lead">Maila Chic prépare une première collection qui associe simili cuir et tissu pagne africain, pensée avec des artisans. Découvrez l'univers avant l'ouverture.</p>
           <div className="hero-actions">
             <Link className="button button-accent" href="/collection">Découvrir la collection</Link>
             <Link className="button button-outline" href="/alerte">Être informé du lancement</Link>
@@ -44,7 +46,7 @@ export default function Home() {
             {heroPromises.map((item) => <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>)}
           </ul>
         </div>
-        <AmbiancePhoto photo={ambiancePhotos.femmeCabasPatchwork} eager />
+        <CollectionFigure visual={collectionHero} caption="Maquette · sac à main modèle petit" className="hero-figure" eager />
         <p className="hero-badge" aria-hidden="true"><span>Collection 01</span><span>Bientôt</span></p>
       </section>
 
@@ -60,12 +62,12 @@ export default function Home() {
           {universes.map((universe) => (
             <article className="universe-card" key={universe.title}>
               {/* eslint-disable-next-line @next/next/no-img-element -- next/image ajoute des styles en ligne bloqués par la CSP */}
-              <img src={universe.photo.image.src} width={universe.photo.image.width} height={universe.photo.image.height} alt={universe.photo.alt} loading="lazy" decoding="async" />
-              <div><h3>{universe.title}</h3><span>Bientôt</span></div>
+              <img src={universe.image.src} width={universe.image.width} height={universe.image.height} alt={universe.alt} loading="lazy" decoding="async" />
+              <div><h3>{universe.title}</h3><span>{universe.mockup ? "Maquette" : "Bientôt"}</span></div>
             </article>
           ))}
         </div>
-        <p className="inspiration-note centered-note">{INSPIRATION_NOTE}</p>
+        <p className="inspiration-note centered-note">Sacs : maquette de la collection 01. Autres familles : pièces d'inspiration, hors collection Maila Chic.</p>
       </section>
 
       <section className="inspiration-section" aria-labelledby="inspiration-title">
@@ -76,8 +78,9 @@ export default function Home() {
         <div className="inspiration-grid inspiration-row">
           {homeInspirations.map((photo) => <InspirationPhoto photo={photo} key={photo.label} />)}
         </div>
+        <p className="inspiration-note centered-note">{INSPIRATION_NOTE}</p>
         <div className="centered-action">
-          <Link className="button button-accent" href="/collection">Voir la collection en préparation</Link>
+          <Link className="button button-accent" href="/collection">Voir les maquettes de la collection</Link>
         </div>
       </section>
 
