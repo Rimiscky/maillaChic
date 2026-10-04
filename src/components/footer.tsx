@@ -12,7 +12,7 @@ export function Footer() {
         <Link href="/mentions-legales">Mentions légales</Link>
         <Link href="/confidentialite">Confidentialité</Link>
       </nav>
-      <p className="asset-note">Visuels de direction artistique temporaires. Photographies de collection à fournir avant publication.</p>
+      <p className="asset-note">Photographies d'ambiance provisoires : les pièces montrées inspirent la direction artistique et ne font pas partie de la collection Maila Chic. Elles seront remplacées par les photographies de la collection.</p>
     </footer>
   );
 }
