@@ -3,6 +3,7 @@ import { AmbiancePhoto } from "@/components/ambiance-photo";
 import { InspirationPhoto } from "@/components/inspiration-photo";
 import { INSPIRATION_NOTE, ambiancePhotos, inspirationPhotos } from "@/lib/photos";
 import { chapters, launchPrinciples } from "@/lib/site";
+import { ArrowIcon } from "@/components/arrow-icon";
 
 const homeInspirations = [
   inspirationPhotos.sacFrangesMulticolores,
@@ -23,7 +24,7 @@ export default function Home() {
           <p className="hero-lead">Une maison de mode pensée comme un dialogue entre la ligne, la matière et le détail. Maila Chic ouvre aujourd'hui son carnet de création.</p>
           <div className="hero-actions">
             <Link className="button button-dark" href="/collection">Voir ce qui se prépare</Link>
-            <Link className="text-action" href="/alerte">Être informé du lancement <span aria-hidden="true">↗</span></Link>
+            <Link className="text-action" href="/alerte">Être informé du lancement <ArrowIcon /></Link>
           </div>
         </div>
         <AmbiancePhoto photo={ambiancePhotos.femmeCabasPatchwork} eager />
@@ -75,7 +76,7 @@ export default function Home() {
           <p className="eyebrow">Une préouverture honnête</p>
           <h2>Le beau commence par la précision.</h2>
           <ol>{launchPrinciples.map((principle) => <li key={principle}>{principle}</li>)}</ol>
-          <Link className="text-action" href="/univers">Entrer dans l'univers <span aria-hidden="true">↗</span></Link>
+          <Link className="text-action" href="/univers">Entrer dans l'univers <ArrowIcon /></Link>
         </div>
       </section>
 

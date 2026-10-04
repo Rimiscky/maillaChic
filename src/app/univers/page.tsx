@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AmbiancePhoto } from "@/components/ambiance-photo";
 import { InspirationPhoto } from "@/components/inspiration-photo";
 import { INSPIRATION_NOTE, ambiancePhotos, inspirationPhotos } from "@/lib/photos";
+import { ArrowIcon } from "@/components/arrow-icon";
 
 export const metadata: Metadata = { title: "L'univers", description: "La direction créative et les principes de préouverture de Maila Chic." };
 
@@ -27,7 +28,7 @@ export default function UniversPage() {
         <article><InspirationPhoto photo={inspirationPhotos.grandSacBogolanPorte} /><span>03</span><h2>Durée</h2><p>Des choix d'usage et d'entretien expliqués lorsque les pièces seront documentées.</p></article>
       </section>
       <p className="inspiration-note">{INSPIRATION_NOTE}</p>
-      <section className="next-step"><p className="eyebrow">Étape suivante</p><h2>Découvrir le plan de révélation.</h2><Link className="text-action" href="/collection">Voir la collection en préparation <span aria-hidden="true">↗</span></Link></section>
+      <section className="next-step"><p className="eyebrow">Étape suivante</p><h2>Découvrir le plan de révélation.</h2><Link className="text-action" href="/collection">Voir la collection en préparation <ArrowIcon /></Link></section>
     </>
   );
 }
