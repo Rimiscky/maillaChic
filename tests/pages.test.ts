@@ -21,9 +21,10 @@ describe("parcours public V1", () => {
   it("propose une expérience de préouverture cohérente et sans achat", () => {
     const home = read("src/app/page.tsx");
     const collection = read("src/app/collection/page.tsx");
-    expect(home).toContain("La première collection se dessine");
+    expect(home).toContain("L'authenticité africaine, <em>le chic</em> à la française.");
     expect(home).toContain('href="/alerte"');
-    expect(home).toContain("Voir ce qui se prépare");
+    expect(home).toContain("Découvrir la collection");
+    expect(read("src/components/header.tsx")).toContain("La première collection se dessine");
     expect(collection).toContain("Aucune vente n'est ouverte");
     expect(`${home}\n${collection}`).not.toMatch(/ajouter au panier|acheter maintenant|commander/i);
   });
@@ -51,5 +52,17 @@ describe("parcours public V1", () => {
       if (readFileSync(new URL(entry, base), "utf8").includes(forbidden)) offenders.push(entry);
     }
     expect(offenders).toEqual([]);
+  });
+});
+
+describe("direction de la maquette, sans affirmations non vérifiées", () => {
+  it("présente pagne, cuir et artisans comme des intentions, sans commerce", () => {
+    const home = read("src/app/page.tsx");
+    for (const intention of ["tissu pagne africain et cuir", "pensée avec des artisans", "Nos univers", "Nos inspirations"]) {
+      expect(home).toContain(intention);
+    }
+    const publicCopy = `${home}\n${read("src/components/header.tsx")}\n${read("src/components/footer.tsx")}`;
+    expect(publicCopy).not.toMatch(/commerce équitable|cuir véritable|artisans africains|fait main|livraison|panier|€|\d+,\d{2}/i);
+    expect(publicCopy).not.toMatch(/contact@|0[1-9](?: ?\d{2}){4}/);
   });
 });
